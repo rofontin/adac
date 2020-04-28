@@ -4,9 +4,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
 
 void main() => runApp(MaterialApp(
-  title: 'ADAC',
-  home: SignInDemo(),
-));
+      title: 'ADAC',
+      home: SignInDemo(),
+    ));
 
 class SignInDemo extends StatefulWidget {
   @override
@@ -20,69 +20,90 @@ class _SignInDemoState extends State<SignInDemo> {
   void initState() {
     // TODO: implementar initState.
     super.initState();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account){
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       setState(() {
         _currentUser = account;
       });
     });
     _googleSignIn.signInSilently();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Entrar com Google'),
-      ),
       body: Center(child: _buildBody()),
     );
   }
 
   Widget _buildBody() {
     if (_currentUser != null) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
+      return Stack(
         children: <Widget>[
-          ListTile(
-            leading: GoogleUserCircleAvatar(
-              identity: _currentUser,
-            ),
-            title: Text(_currentUser.displayName ?? ''),
-            subtitle: Text(_currentUser.email ?? ''),
+          Image.asset(
+            "images/home.png",
+            fit: BoxFit.cover,
+            height: 1000.0,
+            width: 1000.0,
           ),
-          RaisedButton(
-            onPressed: _handleSignOut,
-            child: Text('SAIR'),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ListTile(
+                leading: GoogleUserCircleAvatar(
+                  identity: _currentUser,
+                ),
+                title: Text(_currentUser.displayName ?? ''),
+                subtitle: Text(_currentUser.email ?? ''),
+              ),
+              RaisedButton(
+                onPressed: _handleSignOut,
+                child: Text('SAIR'),
+              )
+            ],
           )
         ],
       );
-    }
-    else{
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
+    } else {
+      return Stack(
         children: <Widget>[
-          Text('Entre com uma conta..'),
-          RaisedButton(
-            onPressed: _handleSignIn,
-            child: Text('ENTRAR'),
+          Image.asset(
+            "images/home.png",
+            fit: BoxFit.cover,
+            height: 1000.0,
+            width: 1000.0,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: RaisedButton(
+                      onPressed: _handleSignIn,
+                      child: Text('ENTRAR', style: TextStyle(fontSize: 20.0, color: Colors.white)),
+                      color: Colors.blue,
+                    ),
+                  )
+                ],
+              ),
+            ],
           )
         ],
       );
     }
   }
 
-  Future<void> _handleSignIn() async{
-    try{
+  Future<void> _handleSignIn() async {
+    try {
       await _googleSignIn.signIn();
-    }catch(error){
+    } catch (error) {
       print(error);
     }
   }
 
-  Future<void> _handleSignOut() async{
+  Future<void> _handleSignOut() async {
     _googleSignIn.disconnect();
   }
 }
