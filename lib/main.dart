@@ -40,7 +40,7 @@ class _SignInDemoState extends State<SignInDemo> {
       return Stack(
         children: <Widget>[
           Image.asset(
-            "images/home.png",
+            "images/telaprincipal.png",
             fit: BoxFit.cover,
             height: 1000.0,
             width: 1000.0,
@@ -67,7 +67,7 @@ class _SignInDemoState extends State<SignInDemo> {
       return Stack(
         children: <Widget>[
           Image.asset(
-            "images/home.png",
+            "images/telaprincipal.png",
             fit: BoxFit.cover,
             height: 1000.0,
             width: 1000.0,
