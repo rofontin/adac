@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:adac/TelaMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
 
@@ -10,6 +14,8 @@ class SignInDemo extends StatefulWidget {
 
 class _SignInDemoState extends State<SignInDemo> {
   GoogleSignInAccount _currentUser;
+
+  final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
 
   @override
   void initState() {
@@ -23,6 +29,19 @@ class _SignInDemoState extends State<SignInDemo> {
     _googleSignIn.signInSilently();
   }
 
+  void _doSomething() async {
+    Timer(Duration(seconds: 3), () {
+        _btnController.success();
+        _handleSignIn();
+        Navigator.push(
+          context, 
+          MaterialPageRoute(
+            builder: (context) => TelaMenu()
+          )
+        );
+    });
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +54,7 @@ class _SignInDemoState extends State<SignInDemo> {
       return Stack(
         children: <Widget>[
           Image.asset(
-            "images/telaprincipal.png",
+            "images/telainicial.png",
             fit: BoxFit.cover,
             height: 1000.0,
             width: 1000.0,
@@ -50,9 +69,15 @@ class _SignInDemoState extends State<SignInDemo> {
                 title: Text(_currentUser.displayName ?? ''),
                 subtitle: Text(_currentUser.email ?? ''),
               ),
-              RaisedButton(
-                onPressed: _handleSignOut,
-                child: Text('SAIR'),
+              RoundedLoadingButton(
+                child: Text(
+                  'Entrar', 
+                  style: TextStyle(
+                    color: Colors.white
+                    )
+                ),
+                controller: _btnController,
+                onPressed: _doSomething,
               )
             ],
           )
@@ -62,7 +87,7 @@ class _SignInDemoState extends State<SignInDemo> {
       return Stack(
         children: <Widget>[
           Image.asset(
-            "images/telaprincipal.png",
+            "images/telainicial.png",
             fit: BoxFit.cover,
             height: 1000.0,
             width: 1000.0,
@@ -74,12 +99,17 @@ class _SignInDemoState extends State<SignInDemo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: RaisedButton(
-                      onPressed: _handleSignIn,
-                      child: Text('ENTRAR', style: TextStyle(fontSize: 20.0, color: Colors.white)),
-                      color: Colors.blue,
-                    ),
+                    padding: EdgeInsets.only(bottom: 60.0),
+                    child: RoundedLoadingButton(
+                      child: Text(
+                      'Entrar', 
+                      style: TextStyle(
+                        color: Colors.white
+                      )
+                      ),
+                      controller: _btnController,
+                      onPressed: _doSomething,
+                    )
                   )
                 ],
               ),

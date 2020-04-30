@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:adac/TelaMenu.dart';
+import 'package:adac/TelaLogin.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.push(
       context, 
       MaterialPageRoute(
-        builder: (context) => TelaMenu()
+        builder: (context) => SignInDemo()
       )
     );
   }
