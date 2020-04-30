@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   google_sign_in: ^4.4.4
   flare_flutter: ^1.5.0
+  rounded_loading_button: ^1.0.0
 
 
 dev_dependencies:
