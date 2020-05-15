@@ -139,6 +139,7 @@ class _TelaMenuState extends State<TelaMenu> {
                               children: <Widget>[
                                 const ListTile(
                                   leading: Icon(
+                                    
                                     Icons.add_circle,
                                     size: 70,
                                     color: Colors.white,
