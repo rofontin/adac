@@ -1,3 +1,4 @@
+import 'package:adac/Funcionalidades/ArquivoNovo.dart';
 import 'package:flutter/material.dart';
 
 class TelaMenu extends StatefulWidget {
@@ -6,6 +7,16 @@ class TelaMenu extends StatefulWidget {
 }
 
 class _TelaMenuState extends State<TelaMenu> {
+
+  void _abrirArquivoNovo(){
+    Navigator.push(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => ArquivoNovo()
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +44,7 @@ class _TelaMenuState extends State<TelaMenu> {
                       color: Colors.blue,
                       child: InkWell(
                           splashColor: Colors.white.withAlpha(100),
-                          onTap: () {},
+                          onTap: _abrirArquivoNovo,
                           child: Center(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -139,7 +150,6 @@ class _TelaMenuState extends State<TelaMenu> {
                               children: <Widget>[
                                 const ListTile(
                                   leading: Icon(
-                                    
                                     Icons.add_circle,
                                     size: 70,
                                     color: Colors.white,

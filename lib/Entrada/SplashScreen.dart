@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:adac/TelaLogin.dart';
+import 'package:adac/Entrada/TelaLogin.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
