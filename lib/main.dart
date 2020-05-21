@@ -1,4 +1,4 @@
-import 'package:adac/SplashScreen.dart';
+import 'package:adac/Entrada/SplashScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

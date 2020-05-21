@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:adac/TelaMenu.dart';
+import 'package:adac/Entrada/TelaMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
