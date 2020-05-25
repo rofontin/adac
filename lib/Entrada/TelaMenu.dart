@@ -1,4 +1,4 @@
-import 'package:adac/Funcionalidades/ArquivoNovo.dart';
+import 'package:adac/Funcionalidades/MenuArquivo.dart';
 import 'package:flutter/material.dart';
 
 class TelaMenu extends StatefulWidget {
@@ -12,7 +12,7 @@ class _TelaMenuState extends State<TelaMenu> {
     Navigator.push(
       context, 
       MaterialPageRoute(
-        builder: (context) => ArquivoNovo()
+        builder: (context) => MenuArquivo()
       )
     );
   }

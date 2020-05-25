@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ArquivoNovo extends StatefulWidget {
+class MenuArquivo extends StatefulWidget {
   @override
-  _ArquivoNovoState createState() => _ArquivoNovoState();
+  _MenuArquivoState createState() => _MenuArquivoState();
 }
 
-class _ArquivoNovoState extends State<ArquivoNovo> {
+class _MenuArquivoState extends State<MenuArquivo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
