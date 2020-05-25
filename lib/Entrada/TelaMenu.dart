@@ -32,7 +32,7 @@ class _TelaMenuState extends State<TelaMenu> {
             Center(
               heightFactor: 12,
               child: ListView(
-                padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                padding: EdgeInsets.only(top: 16.0,left: 16.0, right: 16.0),
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(top: 120),
@@ -43,7 +43,7 @@ class _TelaMenuState extends State<TelaMenu> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        color: Colors.blue,
+                        color: Color.fromRGBO(31, 16, 79, 1),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
                             onTap: _abrirArquivoNovo,
@@ -51,7 +51,9 @@ class _TelaMenuState extends State<TelaMenu> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  const ListTile(
+                                  Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: const ListTile(
                                     leading: Icon(
                                       Icons.add_circle,
                                       size: 70,
@@ -59,8 +61,12 @@ class _TelaMenuState extends State<TelaMenu> {
                                     ),
                                     title: Text('Novo Texto',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 25)),
-                                  ),
+                                            color: Colors.white, 
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.bold
+                                            )),
+                                    ),
+                                  )
                                 ],
                               ),
                             )),
@@ -76,7 +82,7 @@ class _TelaMenuState extends State<TelaMenu> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        color: Colors.purple,
+                        color: Color.fromRGBO(36, 17, 120, 1),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
                             onTap: () {},
@@ -92,7 +98,11 @@ class _TelaMenuState extends State<TelaMenu> {
                                     ),
                                     title: Text('Selecionar Arquivo',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 25)),
+                                            color: Colors.white, 
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.bold
+                                        )
+                                    ),
                                   ),
                                 ],
                               ),
@@ -109,7 +119,7 @@ class _TelaMenuState extends State<TelaMenu> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        color: Colors.pink,
+                        color: Color.fromRGBO(37, 16, 163, 1),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
                             onTap: () {},
@@ -123,9 +133,13 @@ class _TelaMenuState extends State<TelaMenu> {
                                       size: 70,
                                       color: Colors.white,
                                     ),
-                                    title: Text('Novo Texto',
+                                    title: Text('Continuar',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 25)),
+                                            color: Colors.white, 
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.bold
+                                        )
+                                    ),
                                   ),
                                 ],
                               ),
@@ -142,7 +156,7 @@ class _TelaMenuState extends State<TelaMenu> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        color: Colors.grey,
+                        color: Color.fromRGBO(30, 11, 208, 1),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
                             onTap: () {},
@@ -152,13 +166,17 @@ class _TelaMenuState extends State<TelaMenu> {
                                 children: <Widget>[
                                   const ListTile(
                                     leading: Icon(
-                                      Icons.add_circle,
+                                      Icons.settings,
                                       size: 70,
                                       color: Colors.white,
                                     ),
-                                    title: Text('Novo Texto',
+                                    title: Text('Configurações',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 25)),
+                                            color: Colors.white, 
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.bold
+                                        )
+                                    ),
                                   ),
                                 ],
                               ),
