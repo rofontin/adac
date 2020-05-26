@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quill_delta/quill_delta.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
 class Introducao extends StatefulWidget {
@@ -28,7 +29,38 @@ class IntroducaoState extends State<Introducao> {
     // Note that the editor requires special `ZefyrScaffold` widget to be
     // one of its parents.
     return Scaffold(
-      appBar: AppBar(title: Text("Introdução")),
+      appBar: AppBar(
+        title: Text("Introdução"),
+        actions: <Widget>[
+          Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.save),
+              onPressed: () {},
+            ),
+          ),
+          Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.help),
+              onPressed: () {
+                return Alert(
+                  context: context, 
+                  title: "Ajuda!",
+                  desc: "A introdução é primordial para produzir um conteúdo, pois é essa etapa que "
+                  "vai incentivar a leitura completa do texto. Por isso, é importante que a introdução "
+                  "seja muito bem escrita e atrativa para que o leitor permaneça no conteúdo até o fim.",
+                  buttons: [
+                    DialogButton(
+                      child: Text("Fechar"), 
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }
+                    )
+                  ]
+                  ).show();
+              },
+            ),
+          )
+        ],),
       body: ZefyrScaffold(
         child: ZefyrEditor(
           padding: EdgeInsets.all(16),

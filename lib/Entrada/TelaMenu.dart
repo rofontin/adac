@@ -26,19 +26,19 @@ class _TelaMenuState extends State<TelaMenu> {
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("images/telamenu.png"),
+                      image: AssetImage("images/telamenu1.png"),
                       fit: BoxFit.cover)),
             ),
             Center(
               heightFactor: 12,
               child: ListView(
-                padding: EdgeInsets.only(top: 16.0,left: 16.0, right: 16.0),
+                padding: EdgeInsets.only(top: 15.0,left: 16.0, right: 16.0),
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(top: 120),
                     child: Container(
                       width: 300,
-                      height: 100,
+                      height: 80,
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
@@ -49,14 +49,15 @@ class _TelaMenuState extends State<TelaMenu> {
                             onTap: _abrirArquivoNovo,
                             child: Center(
                               child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Padding(
-                                    padding: EdgeInsets.all(10),
+                                    padding: EdgeInsets.only(top: 5),
                                     child: const ListTile(
                                     leading: Icon(
                                       Icons.add_circle,
-                                      size: 70,
+                                      size: 60,
                                       color: Colors.white,
                                     ),
                                     title: Text('Novo Texto',
@@ -74,10 +75,10 @@ class _TelaMenuState extends State<TelaMenu> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 40),
+                    padding: EdgeInsets.only(top: 60),
                     child: Container(
                       width: 300,
-                      height: 100,
+                      height: 80,
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
@@ -88,20 +89,21 @@ class _TelaMenuState extends State<TelaMenu> {
                             onTap: () {},
                             child: Center(
                               child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   const ListTile(
                                     leading: Icon(
                                       Icons.cloud_download,
-                                      size: 70,
+                                      size: 60,
                                       color: Colors.white,
                                     ),
                                     title: Text('Selecionar Arquivo',
-                                        style: TextStyle(
-                                            color: Colors.white, 
-                                            fontSize: 26,
-                                            fontWeight: FontWeight.bold
-                                        )
+                                      style: TextStyle(
+                                          color: Colors.white, 
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.bold
+                                      )
                                     ),
                                   ),
                                 ],
@@ -111,10 +113,10 @@ class _TelaMenuState extends State<TelaMenu> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 40),
+                    padding: EdgeInsets.only(top: 60),
                     child: Container(
                       width: 300,
-                      height: 100,
+                      height: 80,
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
@@ -125,22 +127,26 @@ class _TelaMenuState extends State<TelaMenu> {
                             onTap: () {},
                             child: Center(
                               child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  const ListTile(
-                                    leading: Icon(
-                                      Icons.add_circle,
-                                      size: 70,
-                                      color: Colors.white,
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 5),
+                                    child: const ListTile(
+                                      leading: Icon(
+                                        Icons.edit,
+                                        size: 60,
+                                        color: Colors.white,
+                                      ),
+                                      title: Text('Continuar',
+                                          style: TextStyle(
+                                              color: Colors.white, 
+                                              fontSize: 26,
+                                              fontWeight: FontWeight.bold
+                                          )
+                                      ),
                                     ),
-                                    title: Text('Continuar',
-                                        style: TextStyle(
-                                            color: Colors.white, 
-                                            fontSize: 26,
-                                            fontWeight: FontWeight.bold
-                                        )
-                                    ),
-                                  ),
+                                  )
                                 ],
                               ),
                             )),
@@ -148,10 +154,10 @@ class _TelaMenuState extends State<TelaMenu> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 40),
+                    padding: EdgeInsets.only(top: 60),
                     child: Container(
                       width: 300,
-                      height: 100,
+                      height: 80,
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
@@ -162,22 +168,26 @@ class _TelaMenuState extends State<TelaMenu> {
                             onTap: () {},
                             child: Center(
                               child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  const ListTile(
-                                    leading: Icon(
-                                      Icons.settings,
-                                      size: 70,
-                                      color: Colors.white,
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 5),
+                                    child:const ListTile(
+                                      leading: Icon(
+                                        Icons.settings,
+                                        size: 60,
+                                        color: Colors.white,
+                                      ),
+                                      title: Text('Configurações',
+                                          style: TextStyle(
+                                              color: Colors.white, 
+                                              fontSize: 26,
+                                              fontWeight: FontWeight.bold
+                                          )
+                                      ),
                                     ),
-                                    title: Text('Configurações',
-                                        style: TextStyle(
-                                            color: Colors.white, 
-                                            fontSize: 26,
-                                            fontWeight: FontWeight.bold
-                                        )
-                                    ),
-                                  ),
+                                  )
                                 ],
                               ),
                             )
