@@ -26,7 +26,7 @@ class _MenuArquivoState extends State<MenuArquivo> {
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("images/telamenu.png"),
+                      image: AssetImage("images/telamenu1.png"),
                       fit: BoxFit.cover)),
             ),
             Center(
@@ -35,15 +35,15 @@ class _MenuArquivoState extends State<MenuArquivo> {
                 padding: EdgeInsets.only(top: 16.0,left: 16.0, right: 16.0),
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(top: 120),
+                    padding: EdgeInsets.only(top: 100),
                     child: Container(
                       width: 300,
                       height: 100,
                       child: Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
-                        color: Colors.blue,
+                        color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
                             onTap: _abrirIntroducao,
@@ -52,7 +52,7 @@ class _MenuArquivoState extends State<MenuArquivo> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   const ListTile(
-                                    title: Text('Introdução',
+                                    title: Text('1. Introdução',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 25)),
                                   ),
@@ -69,9 +69,9 @@ class _MenuArquivoState extends State<MenuArquivo> {
                       height: 100,
                       child: Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
-                        color: Colors.purple,
+                        color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
                             onTap: () {},
@@ -80,12 +80,7 @@ class _MenuArquivoState extends State<MenuArquivo> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   const ListTile(
-                                    leading: Icon(
-                                      Icons.cloud_download,
-                                      size: 70,
-                                      color: Colors.white,
-                                    ),
-                                    title: Text('Selecionar Arquivo',
+                                    title: Text('2. Fundamentação Teórica',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 25)),
                                   ),
@@ -102,9 +97,9 @@ class _MenuArquivoState extends State<MenuArquivo> {
                       height: 100,
                       child: Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
-                        color: Colors.pink,
+                        color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
                             onTap: () {},
@@ -113,12 +108,7 @@ class _MenuArquivoState extends State<MenuArquivo> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   const ListTile(
-                                    leading: Icon(
-                                      Icons.add_circle,
-                                      size: 70,
-                                      color: Colors.white,
-                                    ),
-                                    title: Text('Novo Texto',
+                                    title: Text('3. Metodologia',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 25)),
                                   ),
@@ -135,9 +125,9 @@ class _MenuArquivoState extends State<MenuArquivo> {
                       height: 100,
                       child: Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
-                        color: Colors.grey,
+                        color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
                             onTap: () {},
@@ -146,12 +136,7 @@ class _MenuArquivoState extends State<MenuArquivo> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   const ListTile(
-                                    leading: Icon(
-                                      Icons.add_circle,
-                                      size: 70,
-                                      color: Colors.white,
-                                    ),
-                                    title: Text('Novo Texto',
+                                    title: Text('4. Apresentação dos Resultados',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 25)),
                                   ),
@@ -161,7 +146,63 @@ class _MenuArquivoState extends State<MenuArquivo> {
                         ),
                       ),
                     ),
-                  )
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 40),
+                    child: Container(
+                      width: 300,
+                      height: 100,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        color: Color.fromRGBO(255, 255, 255, 0.5),
+                        child: InkWell(
+                            splashColor: Colors.white.withAlpha(100),
+                            onTap: _abrirIntroducao,
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  const ListTile(
+                                    title: Text('5. Considerações Finais',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 25)),
+                                  ),
+                                ],
+                              ),
+                            )),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 40, bottom: 40),
+                    child: Container(
+                      width: 300,
+                      height: 100,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        color: Color.fromRGBO(255, 255, 255, 0.5),
+                        child: InkWell(
+                            splashColor: Colors.white.withAlpha(100),
+                            onTap: _abrirIntroducao,
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  const ListTile(
+                                    title: Text('6. Referências Bibliográficas',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 25)),
+                                  ),
+                                ],
+                              ),
+                            )),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
