@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:adac/TelaLogin.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,12 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _abrirTela(){
-    Navigator.push(
-      context, 
-      MaterialPageRoute(
-        builder: (context) => SignInDemo()
-      )
-    );
+    Navigator.of(context).pushNamedAndRemoveUntil('/TelaLogin', (Route<dynamic> route) => false);
   }
 
   Widget build(BuildContext context) {
