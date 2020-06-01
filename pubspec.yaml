@@ -30,6 +30,7 @@ dependencies:
   sqflite: ^1.1.0
   zefyr: ^0.10.0
   rflutter_alert:
+  quill_delta: ^1.0.2
 
 
 dev_dependencies:

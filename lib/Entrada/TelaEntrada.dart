@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-
-class SignInDemo extends StatefulWidget {
+class TelaEntrada extends StatefulWidget {
   @override
-  _SignInDemoState createState() => _SignInDemoState();
+  _TelaEntradaState createState() => _TelaEntradaState();
 }
 
-class _SignInDemoState extends State<SignInDemo> {
+class _TelaEntradaState extends State<TelaEntrada> {
 
   final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
 
