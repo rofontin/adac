@@ -1,3 +1,8 @@
+import 'package:adac/NovoArquivo/ApresResultados.dart';
+import 'package:adac/NovoArquivo/ConsiderFinais.dart';
+import 'package:adac/NovoArquivo/FundamTeorica.dart';
+import 'package:adac/NovoArquivo/Metodologia.dart';
+import 'package:adac/NovoArquivo/RefBibliograficas.dart';
 import 'package:flutter/material.dart';
 import 'package:adac/NovoArquivo/Introducao.dart';
 
@@ -7,15 +12,6 @@ class MenuArquivo extends StatefulWidget {
 }
 
 class _MenuArquivoState extends State<MenuArquivo> {
-
-  void _abrirIntroducao(){
-    Navigator.push(
-      context, 
-      MaterialPageRoute(
-        builder: (context) => Introducao()
-      )
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +42,14 @@ class _MenuArquivoState extends State<MenuArquivo> {
                         color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
-                            onTap: _abrirIntroducao,
+                            onTap: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) => Introducao()
+                                )
+                              );
+                            },
                             child: Center(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -74,7 +77,14 @@ class _MenuArquivoState extends State<MenuArquivo> {
                         color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) => FundTeori()
+                                )
+                              );
+                            },
                             child: Center(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -102,7 +112,14 @@ class _MenuArquivoState extends State<MenuArquivo> {
                         color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) => Metodolog()
+                                )
+                              );
+                            },
                             child: Center(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -130,7 +147,14 @@ class _MenuArquivoState extends State<MenuArquivo> {
                         color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) => Resultados()
+                                )
+                              );
+                            },
                             child: Center(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -159,7 +183,14 @@ class _MenuArquivoState extends State<MenuArquivo> {
                         color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
-                            onTap: _abrirIntroducao,
+                            onTap: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) => ConsFinais()
+                                )
+                              );
+                            },
                             child: Center(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -187,7 +218,14 @@ class _MenuArquivoState extends State<MenuArquivo> {
                         color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
-                            onTap: _abrirIntroducao,
+                            onTap: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) => RefBiblio()
+                                )
+                              );
+                            },
                             child: Center(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
