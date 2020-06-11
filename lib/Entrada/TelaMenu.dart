@@ -76,6 +76,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
         ]
       ),
       body: new Stack(
+        fit: StackFit.expand,
         children:<Widget>[
         Container(
           decoration: BoxDecoration(
@@ -90,7 +91,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
             Column(
               children: <Widget>[
                 Container(
-                  height: 620.0,
+                  height: 600.0,
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: 4,
@@ -102,7 +103,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
                           _abrirArquivoNovo(cardsList[position].id);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(top:290.0,left: 10,right: 15),
+                          padding: const EdgeInsets.only(top:280.0,left: 10,right: 15),
                           child: Card(
                             color: Color.fromRGBO(255, 255, 255, 0.5),
                             child: Container(
