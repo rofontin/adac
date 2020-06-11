@@ -41,9 +41,7 @@ class _TelaContinuarState extends State<TelaContinuar> {
       body: ListView.builder(
         padding: EdgeInsets.all(10),
         itemCount: 0,
-        itemBuilder: (context, index) {
-
-        }
+        itemBuilder: null
       ),
     );
   }

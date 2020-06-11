@@ -1,4 +1,3 @@
-import 'package:adac/Funcionalidades/MenuArquivo.dart';
 import 'package:flutter/material.dart';
 
 class PrimeiraConfigs extends StatefulWidget {

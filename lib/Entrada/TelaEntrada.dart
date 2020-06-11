@@ -8,8 +8,6 @@ class TelaEntrada extends StatefulWidget {
 
 class _TelaEntradaState extends State<TelaEntrada> {
 
-  final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
-
   void _abrirMenu(){
     Navigator.of(context).pushNamedAndRemoveUntil('/TelaMenu', (Route<dynamic> route) => false);
   }
