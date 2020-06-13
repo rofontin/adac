@@ -3,12 +3,12 @@ import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
-class Introducao extends StatefulWidget {
+class ConsFinais extends StatefulWidget {
   @override
-  IntroducaoState createState() => IntroducaoState();
+  ConsFinaisState createState() => ConsFinaisState();
 }
 
-class IntroducaoState extends State<Introducao> {
+class ConsFinaisState extends State<ConsFinais> {
 
   ZefyrController _controller;
   FocusNode _focusNode;
@@ -26,7 +26,7 @@ class IntroducaoState extends State<Introducao> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Introdução"),
+        title: Text("Considerações Finais"),
         actions: <Widget>[
           Builder(
             builder: (context) => IconButton(
@@ -68,7 +68,7 @@ class IntroducaoState extends State<Introducao> {
   }
 
   NotusDocument _loadDocument() {
-    final Delta delta = Delta()..insert('Introdução\n');
+    final Delta delta = Delta()..insert('Considerações Finais\n');
     return NotusDocument.fromDelta(delta);
   }
 }

@@ -3,12 +3,12 @@ import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
-class Introducao extends StatefulWidget {
+class RefBiblio extends StatefulWidget {
   @override
-  IntroducaoState createState() => IntroducaoState();
+  RefBiblioState createState() => RefBiblioState();
 }
 
-class IntroducaoState extends State<Introducao> {
+class RefBiblioState extends State<RefBiblio> {
 
   ZefyrController _controller;
   FocusNode _focusNode;
@@ -26,7 +26,7 @@ class IntroducaoState extends State<Introducao> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Introdução"),
+        title: Text("Referencias Bibliograficas"),
         actions: <Widget>[
           Builder(
             builder: (context) => IconButton(
@@ -68,7 +68,7 @@ class IntroducaoState extends State<Introducao> {
   }
 
   NotusDocument _loadDocument() {
-    final Delta delta = Delta()..insert('Introdução\n');
+    final Delta delta = Delta()..insert('Referencias Bibliograficas\n');
     return NotusDocument.fromDelta(delta);
   }
 }
