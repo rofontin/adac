@@ -16,7 +16,7 @@ class _TelaContinuarState extends State<TelaContinuar> {
   void initState() {
     super.initState();
 
-    Arquivo arq = Arquivo(1,"João e Maria");
+    /*Arquivo arq = Arquivo(4,"João e Maria");
     db.inserirArquivo(arq);
     Arquivo arq1 = Arquivo(2,"A lenda do tesouro perdido");
     db.inserirArquivo(arq1);
@@ -25,8 +25,15 @@ class _TelaContinuarState extends State<TelaContinuar> {
 
     db.retornaArquivos().then((lista){
       print(lista);
-    });
+    });*/
 
+    db.retornaArquivos().then((lista){
+      setState(() {
+        arquivos = lista;
+      });
+
+      print(lista);
+    });
   }
 
   @override
@@ -40,9 +47,42 @@ class _TelaContinuarState extends State<TelaContinuar> {
       backgroundColor: Colors.white,
       body: ListView.builder(
         padding: EdgeInsets.all(10),
-        itemCount: 0,
-        itemBuilder: null
+        itemCount: arquivos.length,
+        itemBuilder: (context, index) {
+          return _listaArquivos(context,index);
+        }
       ),
     );
   }
+
+   _listaArquivos(BuildContext context,int index){
+
+     return GestureDetector(
+       child: Card(
+         child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        arquivos[index].nome ?? "",
+                        style: TextStyle(
+                          fontSize: 20
+                        )
+                      )
+                    ]
+                  ),
+                )
+              ],
+            ),
+         ),
+         
+       ),
+     );
+
+   }
 }

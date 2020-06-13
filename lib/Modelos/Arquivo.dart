@@ -7,8 +7,8 @@ class Arquivo{
   Map<String,dynamic> toMap(){
 
     var map = <String,dynamic> {
-      'id': id,
-      'nomeArquivo': nome,
+      'id':id,
+      'nomeArquivo':nome
     };
 
     return map;

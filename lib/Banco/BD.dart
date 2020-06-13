@@ -52,12 +52,12 @@ class DatabaseHelper{
     Directory directory = await getApplicationDocumentsDirectory();
     String path = directory.path + 'adacArquivos.db';
 
-    var bdArquivos = await openDatabase(path, version: 1, onCreate: _createDb);
+    var bdArquivos = await openDatabase(path, version: 2, onCreate: _createDb);
     return bdArquivos;
   }
 
   void _createDb(Database db, int newVersion) async {
-    await db.execute('CREATE TABLE $arquivoTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colNomeArquivo VARCHAR(50))');
+    await db.execute('CREATE TABLE $arquivoTable($colId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, $colNomeArquivo VARCHAR(50))');
     await db.execute('CREATE TABLE $corpoArquivoTable($colCorpoId INTEGER PRIMARY KEY AUTOINCREMENT, $colCorpoTitulo VARCHAR(50),$colTopico1 TEXT,'
     '$colTopico2 TEXT,$colTopico3 TEXT,$colTopico4 TEXT,$colTopico5 TEXT,$colTopico6 TEXT, $colEstrangeira INTEGER, FOREIGN KEY ($colEstrangeira) REFERENCES $arquivoTable($colId))');
   }

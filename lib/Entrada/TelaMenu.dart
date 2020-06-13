@@ -1,3 +1,4 @@
+import 'package:adac/Entrada/TelaContinuar.dart';
 import 'package:adac/NovoArquivo/PrimeiraConfigs.dart';
 import 'package:flutter/material.dart';
 import 'package:adac/Funcionalidades/CardModel.dart';
@@ -18,12 +19,12 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
         )
       );
     }else if(id == 2){
-      /*Navigator.push(
+      Navigator.push(
         context, 
         MaterialPageRoute(
-          builder: (context) => PrimeiraConfigs()
+          builder: (context) => TelaContinuar()
         )
-      );*/
+      );
     }else if(id == 3){
       /*Navigator.push(
         context, 
@@ -46,7 +47,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
   ScrollController scrollController;
   var currentColor = Color.fromRGBO(231, 129, 109, 1.0);
 
-  var cardsList = [CardItemModel("Novo Texto", Icons.note_add,1),CardItemModel("Continuar", Icons.edit,3),CardItemModel("Selecionar Arquivo", Icons.cloud_upload,2),CardItemModel("Configurações", Icons.settings,4)];
+  var cardsList = [CardItemModel("Novo Texto", Icons.note_add,1),CardItemModel("Continuar", Icons.edit,2),CardItemModel("Selecionar Arquivo", Icons.cloud_upload,3),CardItemModel("Configurações", Icons.settings,4)];
 
   AnimationController animationController;
 
