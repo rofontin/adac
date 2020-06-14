@@ -2,7 +2,7 @@ class Arquivo{
   int id;
   String nome;
 
-  Arquivo(this.id, this.nome);
+  Arquivo(this.nome);
 
   Map<String,dynamic> toMap(){
 

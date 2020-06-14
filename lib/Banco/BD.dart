@@ -70,7 +70,7 @@ class DatabaseHelper{
     return resultado;
   }
 
-  Future<Arquivo> returnArquivos(int id) async {
+  Future<Arquivo> retornaArquivo(int id) async {
     
     Database db = await this.database;
 
