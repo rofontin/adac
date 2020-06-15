@@ -1,3 +1,4 @@
+import 'package:adac/Entrada/TelaContinuar.dart';
 import 'package:adac/NovoArquivo/PrimeiraConfigs.dart';
 import 'package:flutter/material.dart';
 import 'package:adac/Funcionalidades/CardModel.dart';
@@ -18,12 +19,12 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
         )
       );
     }else if(id == 2){
-      /*Navigator.push(
+      Navigator.push(
         context, 
         MaterialPageRoute(
-          builder: (context) => PrimeiraConfigs()
+          builder: (context) => TelaContinuar()
         )
-      );*/
+      );
     }else if(id == 3){
       /*Navigator.push(
         context, 
@@ -46,7 +47,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
   ScrollController scrollController;
   var currentColor = Color.fromRGBO(231, 129, 109, 1.0);
 
-  var cardsList = [CardItemModel("Novo Texto", Icons.note_add,1),CardItemModel("Continuar", Icons.edit,3),CardItemModel("Selecionar Arquivo", Icons.cloud_upload,2),CardItemModel("Configurações", Icons.settings,4)];
+  var cardsList = [CardItemModel("Novo Texto", Icons.note_add,1),CardItemModel("Continuar", Icons.edit,2),CardItemModel("Selecionar Arquivo", Icons.cloud_upload,3),CardItemModel("Configurações", Icons.settings,4)];
 
   AnimationController animationController;
 
@@ -76,6 +77,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
         ]
       ),
       body: new Stack(
+        fit: StackFit.expand,
         children:<Widget>[
         Container(
           decoration: BoxDecoration(
@@ -90,7 +92,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
             Column(
               children: <Widget>[
                 Container(
-                  height: 620.0,
+                  height: 600.0,
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: 4,
@@ -102,7 +104,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
                           _abrirArquivoNovo(cardsList[position].id);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(top:290.0,left: 10,right: 15),
+                          padding: const EdgeInsets.only(top:280.0,left: 10,right: 15),
                           child: Card(
                             color: Color.fromRGBO(255, 255, 255, 0.5),
                             child: Container(

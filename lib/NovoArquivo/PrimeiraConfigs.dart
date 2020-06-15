@@ -1,4 +1,3 @@
-import 'package:adac/Funcionalidades/MenuArquivo.dart';
 import 'package:flutter/material.dart';
 
 class PrimeiraConfigs extends StatefulWidget {
@@ -36,7 +35,7 @@ class _PrimeiraConfigsState extends State<PrimeiraConfigs> {
               )
             ),
             Padding(
-              padding: EdgeInsets.only(top: 350),
+              padding: EdgeInsets.only(top: 330),
               child: FloatingActionButton(
                 onPressed: (){
                   Navigator.of(context).pushNamedAndRemoveUntil('/TelaNovoArquivo', (Route<dynamic> route) => false);

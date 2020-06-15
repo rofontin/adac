@@ -16,14 +16,20 @@ class _MenuArquivoState extends State<MenuArquivo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: new AppBar(
+        backgroundColor: Color.fromRGBO(18, 32, 45, 1),
+        title: new Text("Documento ????", style: TextStyle(fontSize: 25.0),),
+      ),
       body: Container(
         child: Stack(
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("images/telamenu1.png"),
-                      fit: BoxFit.cover)),
+                image: DecorationImage(
+                  image: AssetImage("images/telainicial.png"),
+                  fit: BoxFit.fill
+                )
+              ),
             ),
             Center(
               heightFactor: 12,
@@ -31,7 +37,7 @@ class _MenuArquivoState extends State<MenuArquivo> {
                 padding: EdgeInsets.only(top: 16.0,left: 16.0, right: 16.0),
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(top: 100),
+                    padding: EdgeInsets.only(top: 20),
                     child: Container(
                       width: 300,
                       height: 100,
