@@ -70,15 +70,15 @@ class DatabaseHelper{
     return resultado;
   }
 
-  Future<Arquivo> retornaArquivo(int id) async {
+  Future<Arquivo> retornaArquivo(String nome) async {
     
     Database db = await this.database;
 
     List<Map> maps = await db.query(
       arquivoTable,
       columns: [colId,colNomeArquivo],
-      where: "$colId = ?",
-      whereArgs: [id]
+      where: "$colNomeArquivo = ?",
+      whereArgs: [nome]
     );
 
     if(maps.length > 0){

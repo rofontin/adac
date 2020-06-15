@@ -25,7 +25,7 @@ class _PrimeiraConfigsState extends State<PrimeiraConfigs> {
     super.initState();
 
     if(widget.arquivo == null){
-      _arquivo = Arquivo("");
+        _arquivo = Arquivo("");
     }else{
       _arquivo = Arquivo.fromMap(widget.arquivo.toMap());
 
@@ -53,6 +53,26 @@ class _PrimeiraConfigsState extends State<PrimeiraConfigs> {
     );
   }
 
+  void _nomeExiste(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Atenção!"),
+          content: Text("O nome de arquivo ja existe, por favor, digite outro nome!"),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: (){
+                Navigator.of(context).pop();
+              }, 
+              child: Text("Fechar")
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +84,7 @@ class _PrimeiraConfigsState extends State<PrimeiraConfigs> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           if(_arquivo.nome != null && _arquivo.nome.isNotEmpty){
-            _inseriArquivo(_arquivo);
+            _inseriArquivo(_arquivo); 
           }else{
             _exibiAlerta();
             FocusScope.of(context).requestFocus(_nomeFocus);
