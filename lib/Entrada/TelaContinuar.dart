@@ -1,4 +1,5 @@
 import 'package:adac/Banco/BD.dart';
+import 'package:adac/Continuar/Continuar.dart';
 import 'package:adac/Modelos/Arquivo.dart';
 import 'package:flutter/material.dart';
 
@@ -16,17 +17,10 @@ class _TelaContinuarState extends State<TelaContinuar> {
   void initState() {
     super.initState();
 
-    /*Arquivo arq = Arquivo(4,"João e Maria");
-    db.inserirArquivo(arq);
-    Arquivo arq1 = Arquivo(2,"A lenda do tesouro perdido");
-    db.inserirArquivo(arq1);
-    Arquivo arq2 = Arquivo(3,"Bananas de Pijamas");
-    db.inserirArquivo(arq2);
+    _exibiArquivos();
+  }
 
-    db.retornaArquivos().then((lista){
-      print(lista);
-    });*/
-
+  void _exibiArquivos(){
     db.retornaArquivos().then((lista){
       setState(() {
         arquivos = lista;
@@ -76,13 +70,55 @@ class _TelaContinuarState extends State<TelaContinuar> {
                       )
                     ]
                   ),
-                )
+                ),
               ],
             ),
          ),
-         
        ),
+       onLongPress: (){
+         _confirmaExclusao(context,arquivos[index].id,index);
+       },
+       onTap: (){
+         _continuar(index);
+       }
      );
+   }
 
+   void _continuar(index){
+     Navigator.push(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => ContinuarArquivo(idArquivo: arquivos[index].id,nomeArquivo: arquivos[index].nome,),
+      )
+    );
+   }
+
+   void _confirmaExclusao(BuildContext context, int idArquivo, index){
+     showDialog(
+       context: context,
+       builder: (BuildContext context) {
+         return AlertDialog(
+           title: Text("Excluir Arquivo"),
+           content: Text("Deseja realmente excluir este arquivo?"),
+           actions: <Widget>[
+             FlatButton(
+               onPressed: (){
+                 Navigator.of(context).pop();
+               }, 
+               child: Text("Cancelar")
+              ),
+              FlatButton(
+               onPressed: (){
+                 arquivos.removeAt(index);
+                 db.deletarArquivo(idArquivo);
+                 _exibiArquivos();
+                 Navigator.of(context).pop();
+               }, 
+               child: Text("Confirmar")
+              )
+           ],
+         );
+        },
+      );
    }
 }

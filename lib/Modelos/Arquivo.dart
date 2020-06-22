@@ -2,7 +2,7 @@ class Arquivo{
   int id;
   String nome;
 
-  Arquivo(this.id, this.nome);
+  Arquivo(this.nome);
 
   Map<String,dynamic> toMap(){
 
@@ -15,7 +15,11 @@ class Arquivo{
   }
 
   Arquivo.fromMap(Map<String,dynamic> map){
-    id = map['id'];
-    nome = map['nomeArquivo'];
+    this.id = map['id'];
+    this.nome = map['nomeArquivo'];
+  }
+
+  getNome(){
+    return this.nome;
   }
 }

@@ -1,23 +1,38 @@
+import 'package:adac/Banco/BD.dart';
+import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:flutter/material.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
 class Introducao extends StatefulWidget {
+
+  final int idArquivo;
+
+  Introducao({Key key, this.idArquivo}) : super(key: key,);
+
   @override
   IntroducaoState createState() => IntroducaoState();
 }
 
 class IntroducaoState extends State<Introducao> {
 
+  CorpoArquivo _corpoArquivo;
+
   ZefyrController _controller;
   FocusNode _focusNode;
+  DatabaseHelper db = DatabaseHelper();
+  List<CorpoArquivo> topicos = List<CorpoArquivo>();
 
   @override
   void initState() {
     super.initState();
     
-    final document = _loadDocument();
+    _corpoArquivo = CorpoArquivo(widget.idArquivo);
+    _corpoArquivo.topico1 = 'Introdução teste 1';
+    List<CorpoArquivo> topicos;
+
+    final document = _loadDocument(topicos);
     _controller = ZefyrController(document);
     _focusNode = FocusNode();
   }
@@ -31,7 +46,10 @@ class IntroducaoState extends State<Introducao> {
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
-              onPressed: () {},
+              onPressed: () {
+                print(_corpoArquivo.idArquivo);
+                _inseriIntroducao(_corpoArquivo);
+              },
             ),
           ),
           Builder(
@@ -56,7 +74,8 @@ class IntroducaoState extends State<Introducao> {
               },
             ),
           )
-        ],),
+        ],
+      ),
       body: ZefyrScaffold(
         child: ZefyrEditor(
           padding: EdgeInsets.all(16),
@@ -67,8 +86,12 @@ class IntroducaoState extends State<Introducao> {
     );
   }
 
-  NotusDocument _loadDocument() {
-    final Delta delta = Delta()..insert('Introdução\n');
+  NotusDocument _loadDocument(List<CorpoArquivo> topicos) {
+    final Delta delta = Delta()..insert(topicos[4].topico1);
     return NotusDocument.fromDelta(delta);
+  }
+
+  void _inseriIntroducao(CorpoArquivo corpoArquivo) async{
+      await db.inserirCorpo(corpoArquivo);
   }
 }
