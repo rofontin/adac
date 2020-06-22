@@ -15,7 +15,11 @@ class Arquivo{
   }
 
   Arquivo.fromMap(Map<String,dynamic> map){
-    id = map['id'];
-    nome = map['nomeArquivo'];
+    this.id = map['id'];
+    this.nome = map['nomeArquivo'];
+  }
+
+  getNome(){
+    return this.nome;
   }
 }

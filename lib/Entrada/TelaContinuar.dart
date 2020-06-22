@@ -1,4 +1,5 @@
 import 'package:adac/Banco/BD.dart';
+import 'package:adac/Continuar/Continuar.dart';
 import 'package:adac/Modelos/Arquivo.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +56,6 @@ class _TelaContinuarState extends State<TelaContinuar> {
          child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Row(
-              
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(left: 10),
@@ -71,17 +71,26 @@ class _TelaContinuarState extends State<TelaContinuar> {
                     ]
                   ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.delete), 
-                  onPressed: (){
-                    _confirmaExclusao(context,arquivos[index].id,index);
-                  },
-                )
               ],
             ),
          ),
        ),
+       onLongPress: (){
+         _confirmaExclusao(context,arquivos[index].id,index);
+       },
+       onTap: (){
+         _continuar(index);
+       }
      );
+   }
+
+   void _continuar(index){
+     Navigator.push(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => ContinuarArquivo(idArquivo: arquivos[index].id,nomeArquivo: arquivos[index].nome,),
+      )
+    );
    }
 
    void _confirmaExclusao(BuildContext context, int idArquivo, index){
@@ -109,7 +118,7 @@ class _TelaContinuarState extends State<TelaContinuar> {
               )
            ],
          );
-       },
+        },
       );
    }
 }

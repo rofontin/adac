@@ -1,4 +1,5 @@
 import 'package:adac/Banco/BD.dart';
+import 'package:adac/Funcionalidades/MenuArquivo.dart';
 import 'package:adac/Modelos/Arquivo.dart';
 import 'package:flutter/material.dart';
 
@@ -85,6 +86,12 @@ class _PrimeiraConfigsState extends State<PrimeiraConfigs> {
         onPressed: (){
           if(_arquivo.nome != null && _arquivo.nome.isNotEmpty){
             _inseriArquivo(_arquivo); 
+            Navigator.push(
+              context, 
+              MaterialPageRoute(
+                builder: (context) => MenuArquivo(idArquivo: _arquivo.id),
+              )
+            );
           }else{
             _exibiAlerta();
             FocusScope.of(context).requestFocus(_nomeFocus);

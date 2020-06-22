@@ -1,3 +1,4 @@
+import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:adac/NovoArquivo/ApresResultados.dart';
 import 'package:adac/NovoArquivo/ConsiderFinais.dart';
 import 'package:adac/NovoArquivo/FundamTeorica.dart';
@@ -6,19 +7,19 @@ import 'package:adac/NovoArquivo/RefBibliograficas.dart';
 import 'package:flutter/material.dart';
 import 'package:adac/NovoArquivo/Introducao.dart';
 
-class MenuArquivo extends StatelessWidget {
+class ContinuarArquivo extends StatelessWidget {
 
   int idArquivo;
   String nomeArquivo;
 
-  MenuArquivo({Key key, this.idArquivo}) : super(key: key);
+  ContinuarArquivo({Key key, this.idArquivo,this.nomeArquivo}) : super(key: key,);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromRGBO(18, 32, 45, 1),
-        title: new Text("Documento $idArquivo", style: TextStyle(fontSize: 25.0),),
+        title: new Text("$nomeArquivo", style: TextStyle(fontSize: 25.0),),
       ),
       body: Container(
         child: Stack(
@@ -52,7 +53,7 @@ class MenuArquivo extends StatelessWidget {
                               Navigator.push(
                                 context, 
                                 MaterialPageRoute(
-                                  builder: (context) => Introducao()
+                                  builder: (context) => Introducao(idArquivo: idArquivo,)
                                 )
                               );
                             },

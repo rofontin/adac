@@ -9,13 +9,13 @@ class CorpoArquivo{
   String topico6;
   int idArquivo;
 
-  CorpoArquivo(this.id, this.titulo,this.idArquivo);
+  CorpoArquivo(this.idArquivo);
 
   Map<String,dynamic> toMap(){
 
     var map = <String,dynamic> {
       'id':id,
-      'nomeArquivo':titulo,
+      'titulo':titulo,
       'topico1':topico1,
       'topico2':topico2,
       'topico3':topico3,
