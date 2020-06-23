@@ -87,7 +87,8 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
             )
           ),
         ),
-        Column(
+        SingleChildScrollView(
+          child: Column(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -126,7 +127,8 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
                                       children: <Widget>[
                                         Padding(
                                           padding: const EdgeInsets.all(30),
-                                          child: Text("${cardsList[position].cardTitle}",textAlign: TextAlign.center ,style: TextStyle(fontSize: 30.0,color: Colors.white),),
+                                          child: Text("${cardsList[position].cardTitle}",
+                                          textAlign: TextAlign.center ,style: TextStyle(fontSize: 30.0,color: Colors.white),),
                                         ),
                                       ],
                                     ),
@@ -164,6 +166,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
               ],
             )
           ],
+        ),
         ),
         ]
       ),
