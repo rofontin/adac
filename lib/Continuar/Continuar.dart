@@ -1,5 +1,4 @@
 import 'package:adac/Banco/BD.dart';
-import 'package:adac/Modelos/Arquivo.dart';
 import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:adac/NovoArquivo/ApresResultados.dart';
 import 'package:adac/NovoArquivo/ConsiderFinais.dart';
@@ -9,25 +8,22 @@ import 'package:adac/NovoArquivo/RefBibliograficas.dart';
 import 'package:flutter/material.dart';
 import 'package:adac/NovoArquivo/Introducao.dart';
 
-class MenuArquivo extends StatefulWidget {
+class ContinuarArquivo extends StatefulWidget {
 
-  MenuArquivo({Key key, this.idArquivo,this.titulo,this.nomeArquivo}) : super(key: key);
+  int idArquivo;
+  String nomeArquivo;
 
-  final int idArquivo;
-  final String nomeArquivo;
-  final String titulo;
+  ContinuarArquivo({Key key, this.idArquivo,this.nomeArquivo}) : super(key: key,);
 
   @override
-  _MenuArquivoState createState() => _MenuArquivoState();
+  _ContinuarArquivoState createState() => _ContinuarArquivoState();
 }
 
-class _MenuArquivoState extends State<MenuArquivo> {
-
-  List<CorpoArquivo> corpo = List<CorpoArquivo>();
-  CorpoArquivo _corpoArquivo = CorpoArquivo();
-  DatabaseHelper db = DatabaseHelper();
+class _ContinuarArquivoState extends State<ContinuarArquivo> {
 
   String _nome;
+  List<CorpoArquivo> corpo = List<CorpoArquivo>();
+  DatabaseHelper db = DatabaseHelper();
 
   @override
   void initState() {
@@ -68,6 +64,40 @@ class _MenuArquivoState extends State<MenuArquivo> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(top: 20),
+                    child: Container(
+                      width: 300,
+                      height: 100,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        color: Color.fromRGBO(255, 255, 255, 0.5),
+                        child: InkWell(
+                            splashColor: Colors.white.withAlpha(100),
+                            onTap: () {
+                              
+                            },
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  const ListTile(
+                                    title: Text('Arquivo Todo',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white, fontSize: 25
+                                      )
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 40),
                     child: Container(
                       width: 300,
                       height: 100,

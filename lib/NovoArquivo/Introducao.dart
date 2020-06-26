@@ -1,9 +1,17 @@
+import 'package:adac/Banco/BD.dart';
+import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:flutter/material.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
 class Introducao extends StatefulWidget {
+
+  int idArquivo;
+  String introducao;
+
+  Introducao({Key key, this.idArquivo,this.introducao}) : super(key: key,);
+
   @override
   IntroducaoState createState() => IntroducaoState();
 }
@@ -12,12 +20,15 @@ class IntroducaoState extends State<Introducao> {
 
   ZefyrController _controller;
   FocusNode _focusNode;
+  CorpoArquivo _corpoArquivo = CorpoArquivo();
+
+  DatabaseHelper db = DatabaseHelper();
 
   @override
   void initState() {
     super.initState();
-    
-    final document = _loadDocument();
+
+    final document = _loadDocument(context);
     _controller = ZefyrController(document);
     _focusNode = FocusNode();
   }
@@ -31,7 +42,12 @@ class IntroducaoState extends State<Introducao> {
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
-              onPressed: () {},
+              onPressed: () {
+                _corpoArquivo.id = widget.idArquivo;
+                _corpoArquivo.idArquivo = widget.idArquivo;
+                _corpoArquivo.topico1 = "Introdução sucedida com sucesso";
+                db.atualizaCorpoArquivo(_corpoArquivo);
+              },
             ),
           ),
           Builder(
@@ -56,19 +72,21 @@ class IntroducaoState extends State<Introducao> {
               },
             ),
           )
-        ],),
+        ],
+      ),
       body: ZefyrScaffold(
         child: ZefyrEditor(
           padding: EdgeInsets.all(16),
           controller: _controller,
           focusNode: _focusNode,
+          
         ),
       ),
     );
   }
 
-  NotusDocument _loadDocument() {
-    final Delta delta = Delta()..insert('Introdução\n');
+  NotusDocument _loadDocument(BuildContext context) {
+    final Delta delta = Delta()..insert(widget.introducao+"\n");
     return NotusDocument.fromDelta(delta);
   }
 }

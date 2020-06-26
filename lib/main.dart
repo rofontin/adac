@@ -2,9 +2,9 @@ import 'package:adac/Entrada/TelaEntrada.dart';
 import 'package:adac/Entrada/TelaMenu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 import 'Funcionalidades/MenuArquivo.dart';
-import 'dart:async';
 
 void main(List<String> args) {
   runApp(MaterialApp(
