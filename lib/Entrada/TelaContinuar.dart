@@ -25,8 +25,6 @@ class _TelaContinuarState extends State<TelaContinuar> {
       setState(() {
         arquivos = lista;
       });
-
-      print(lista);
     });
   }
 

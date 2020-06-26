@@ -78,24 +78,27 @@ class DatabaseHelper{
   /*
    * Inseri um arquivo
    */
-  Future<int> inserirArquivo(Arquivo arquivo) async {
+  Future<int>inserirArquivo(Arquivo arquivo,CorpoArquivo corpo) async {
     Database db = await this.database;
 
     var resultado = await db.insert(arquivoTable, arquivo.toMap());
+    corpo.id = resultado;
+    corpo.idArquivo = resultado;
+    await db.insert(corpoArquivoTable, corpo.toMap());
 
     return resultado;
   }
 
   /*
    * Inseri o corpo de um arquivo
-   */
+   
   Future<int> inserirCorpo(CorpoArquivo corpoArquivo) async {
     Database db = await this.database;
 
-    var resultado = await db.insert(corpoArquivoTable, corpoArquivo.toMap());
+    
 
-    return resultado;
-  }
+ 
+  }*/
 
   /*
    * Retorna arquivo pelo nome
@@ -112,7 +115,7 @@ class DatabaseHelper{
     );
 
     if(maps.length > 0){
-      return Arquivo.fromMap(maps.first).getNome();
+      return Arquivo.fromMap(maps.first);
     }else{
       return null;
     }
@@ -168,8 +171,8 @@ class DatabaseHelper{
     var resultado = await db.update(
       corpoArquivoTable,
       corpoArquivo.toMap(),
-      where: '$colId = ?',
-      whereArgs: [corpoArquivo.id]
+      where: '$colEstrangeira = ?',
+      whereArgs: [corpoArquivo.idArquivo]
     );
 
     return resultado;

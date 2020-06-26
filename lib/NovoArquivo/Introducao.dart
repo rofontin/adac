@@ -7,9 +7,10 @@ import 'package:zefyr/zefyr.dart';
 
 class Introducao extends StatefulWidget {
 
-  final int idArquivo;
+  int idArquivo;
+  String introducao;
 
-  Introducao({Key key, this.idArquivo}) : super(key: key,);
+  Introducao({Key key, this.idArquivo,this.introducao}) : super(key: key,);
 
   @override
   IntroducaoState createState() => IntroducaoState();
@@ -17,22 +18,17 @@ class Introducao extends StatefulWidget {
 
 class IntroducaoState extends State<Introducao> {
 
-  CorpoArquivo _corpoArquivo;
-
   ZefyrController _controller;
   FocusNode _focusNode;
+  CorpoArquivo _corpoArquivo = CorpoArquivo();
+
   DatabaseHelper db = DatabaseHelper();
-  List<CorpoArquivo> topicos = List<CorpoArquivo>();
 
   @override
   void initState() {
     super.initState();
-    
-    _corpoArquivo = CorpoArquivo(widget.idArquivo);
-    _corpoArquivo.topico1 = 'Introdução teste 1';
-    List<CorpoArquivo> topicos;
 
-    final document = _loadDocument(topicos);
+    final document = _loadDocument(context);
     _controller = ZefyrController(document);
     _focusNode = FocusNode();
   }
@@ -47,8 +43,10 @@ class IntroducaoState extends State<Introducao> {
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
               onPressed: () {
-                print(_corpoArquivo.idArquivo);
-                _inseriIntroducao(_corpoArquivo);
+                _corpoArquivo.id = widget.idArquivo;
+                _corpoArquivo.idArquivo = widget.idArquivo;
+                _corpoArquivo.topico1 = "Introdução sucedida com sucesso";
+                db.atualizaCorpoArquivo(_corpoArquivo);
               },
             ),
           ),
@@ -86,12 +84,8 @@ class IntroducaoState extends State<Introducao> {
     );
   }
 
-  NotusDocument _loadDocument(List<CorpoArquivo> topicos) {
-    final Delta delta = Delta()..insert(topicos[4].topico1);
+  NotusDocument _loadDocument(BuildContext context) {
+    final Delta delta = Delta()..insert(widget.introducao+"\n");
     return NotusDocument.fromDelta(delta);
-  }
-
-  void _inseriIntroducao(CorpoArquivo corpoArquivo) async{
-      await db.inserirCorpo(corpoArquivo);
   }
 }

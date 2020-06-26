@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:adac/Banco/BD.dart';
 import 'package:adac/Funcionalidades/MenuArquivo.dart';
 import 'package:adac/Modelos/Arquivo.dart';
+import 'package:adac/Modelos/CorpoArquivo.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PrimeiraConfigs extends StatefulWidget {
@@ -17,6 +21,13 @@ class _PrimeiraConfigsState extends State<PrimeiraConfigs> {
   final _nomeController = TextEditingController();
   final _nomeFocus = FocusNode();
 
+  List<Arquivo> arquivos = List<Arquivo>();
+  CorpoArquivo _corpoArquivo = CorpoArquivo();
+
+  int idArquivo;
+  String _titulo = "";
+  bool existe = false;
+
   DatabaseHelper db = DatabaseHelper();
 
   Arquivo _arquivo;
@@ -32,6 +43,12 @@ class _PrimeiraConfigsState extends State<PrimeiraConfigs> {
 
       _nomeController.text = _arquivo.nome;
     }
+
+    db.retornaArquivos().then((lista){
+      setState(() {
+        arquivos = lista;
+      });
+    });
   }
 
   void _exibiAlerta(){
@@ -85,13 +102,36 @@ class _PrimeiraConfigsState extends State<PrimeiraConfigs> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           if(_arquivo.nome != null && _arquivo.nome.isNotEmpty){
-            _inseriArquivo(_arquivo); 
-            Navigator.push(
-              context, 
-              MaterialPageRoute(
-                builder: (context) => MenuArquivo(idArquivo: _arquivo.id),
-              )
-            );
+            for(Arquivo arquivo in arquivos){
+              if(_arquivo.nome == arquivo.nome){
+                existe = true;
+              }else{
+                existe = false;
+              }
+            }
+            if(existe == false){
+              
+              FutureBuilder(
+                future: _inseriArquivo(_arquivo,_corpoArquivo),
+                builder: (context,snapshot){
+                  if(snapshot.data){
+                    return Center(
+                      child: Text(
+                        snapshot.data,
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    );
+                  }else{
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }
+              );
+            }else{
+              _nomeExiste();
+            }
+            
           }else{
             _exibiAlerta();
             FocusScope.of(context).requestFocus(_nomeFocus);
@@ -124,6 +164,10 @@ class _PrimeiraConfigsState extends State<PrimeiraConfigs> {
                   icon: Icon(Icons.edit),
                   labelText: 'Titulo *',
                 ),
+                onChanged: (editTitulo){
+                  _titulo = editTitulo;
+                  _corpoArquivo.titulo = editTitulo;
+                },
               )
             ),
           ],
@@ -131,7 +175,19 @@ class _PrimeiraConfigsState extends State<PrimeiraConfigs> {
       )
     );
   }
-  void _inseriArquivo(Arquivo arquivo) async{
-      await db.inserirArquivo(arquivo);
+
+  _inseriArquivo(Arquivo arquivo,CorpoArquivo corpoArquivo) async{
+      var id = await db.inserirArquivo(arquivo,corpoArquivo);
+      idArquivo = id;
+      _irMenuArquivo();
+  }
+
+  _irMenuArquivo(){
+    Navigator.push(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => MenuArquivo(idArquivo: idArquivo, titulo: _titulo,nomeArquivo: _arquivo.nome,),
+      )
+    );
   }
 }
