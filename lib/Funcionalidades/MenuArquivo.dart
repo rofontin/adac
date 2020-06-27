@@ -1,3 +1,6 @@
+import 'package:adac/Banco/BD.dart';
+import 'package:adac/Modelos/Arquivo.dart';
+import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:adac/NovoArquivo/ApresResultados.dart';
 import 'package:adac/NovoArquivo/ConsiderFinais.dart';
 import 'package:adac/NovoArquivo/FundamTeorica.dart';
@@ -6,19 +9,46 @@ import 'package:adac/NovoArquivo/RefBibliograficas.dart';
 import 'package:flutter/material.dart';
 import 'package:adac/NovoArquivo/Introducao.dart';
 
-class MenuArquivo extends StatelessWidget {
+class MenuArquivo extends StatefulWidget {
 
-  int idArquivo;
-  String nomeArquivo;
+  MenuArquivo({Key key, this.idArquivo,this.titulo,this.nomeArquivo}) : super(key: key);
 
-  MenuArquivo({Key key, this.idArquivo}) : super(key: key);
+  final int idArquivo;
+  final String nomeArquivo;
+  final String titulo;
+
+  @override
+  _MenuArquivoState createState() => _MenuArquivoState();
+}
+
+class _MenuArquivoState extends State<MenuArquivo> {
+
+  List<CorpoArquivo> corpo = List<CorpoArquivo>();
+  CorpoArquivo _corpoArquivo = CorpoArquivo();
+  DatabaseHelper db = DatabaseHelper();
+
+  String _nome;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _nome = widget.nomeArquivo;
+
+    db.retornaCorpoArquivo(widget.idArquivo).then((lista){
+      setState(() {
+        this.corpo = lista;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromRGBO(18, 32, 45, 1),
-        title: new Text("Documento $idArquivo", style: TextStyle(fontSize: 25.0),),
+        title: new Text(_nome, style: TextStyle(fontSize: 25.0),),
+        centerTitle: true,
       ),
       body: Container(
         child: Stack(
@@ -52,7 +82,7 @@ class MenuArquivo extends StatelessWidget {
                               Navigator.push(
                                 context, 
                                 MaterialPageRoute(
-                                  builder: (context) => Introducao()
+                                  builder: (context) => Introducao(idArquivo: corpo[0].idArquivo,introducao: corpo[0].topico1,)
                                 )
                               );
                             },
