@@ -1,13 +1,13 @@
 import 'package:adac/Banco/BD.dart';
 import 'package:adac/Modelos/Arquivo.dart';
 import 'package:adac/Modelos/CorpoArquivo.dart';
-import 'package:adac/NovoArquivo/ApresResultados.dart';
-import 'package:adac/NovoArquivo/ConsiderFinais.dart';
-import 'package:adac/NovoArquivo/FundamTeorica.dart';
-import 'package:adac/NovoArquivo/Metodologia.dart';
-import 'package:adac/NovoArquivo/RefBibliograficas.dart';
+import 'package:adac/Arquivo/ApresResultados.dart';
+import 'package:adac/Arquivo/ConsiderFinais.dart';
+import 'package:adac/Arquivo/FundamTeorica.dart';
+import 'package:adac/Arquivo/Metodologia.dart';
+import 'package:adac/Arquivo/RefBibliograficas.dart';
 import 'package:flutter/material.dart';
-import 'package:adac/NovoArquivo/Introducao.dart';
+import 'package:adac/Arquivo/Introducao.dart';
 
 class MenuArquivo extends StatefulWidget {
 

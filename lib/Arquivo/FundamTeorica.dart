@@ -1,9 +1,17 @@
+import 'package:adac/Banco/BD.dart';
+import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:flutter/material.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
 class FundTeori extends StatefulWidget {
+
+  int idArquivo;
+  String fundamentacao;
+
+  FundTeori({Key key, this.idArquivo,this.fundamentacao}) : super(key: key,);
+
   @override
   FundTeoriState createState() => FundTeoriState();
 }
@@ -12,12 +20,15 @@ class FundTeoriState extends State<FundTeori> {
 
   ZefyrController _controller;
   FocusNode _focusNode;
+  CorpoArquivo _corpoArquivo = CorpoArquivo();
+
+  DatabaseHelper db = DatabaseHelper();
 
   @override
   void initState() {
     super.initState();
-    
-    final document = _loadDocument();
+
+    final document = _loadDocument(context);
     _controller = ZefyrController(document);
     _focusNode = FocusNode();
   }
@@ -31,7 +42,26 @@ class FundTeoriState extends State<FundTeori> {
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
-              onPressed: () {},
+              onPressed: () {
+                _corpoArquivo.id = widget.idArquivo;
+                _corpoArquivo.idArquivo = widget.idArquivo;
+                _corpoArquivo.topico2 = _controller.document.toPlainText();
+                db.atualizaCorpoArquivo(_corpoArquivo);
+
+                return Alert(
+                  context: context, 
+                  title: "Salvar Arquivo",
+                  desc: "Arquivo salvo com sucesso!",
+                  buttons: [
+                    DialogButton(
+                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }
+                    )
+                  ]
+                  ).show();
+              },
             ),
           ),
           Builder(
@@ -41,9 +71,8 @@ class FundTeoriState extends State<FundTeori> {
                 return Alert(
                   context: context, 
                   title: "Ajuda!",
-                  desc: "A introdução é primordial para produzir um conteúdo, pois é essa etapa que "
-                  "vai incentivar a leitura completa do texto. Por isso, é importante que a introdução "
-                  "seja muito bem escrita e atrativa para que o leitor permaneça no conteúdo até o fim.",
+                  desc: "A fundamentação teórica consiste em embasar por meio das ideias " +
+                  "de outros autores aspectos teóricos de sua pesquisa.",
                   buttons: [
                     DialogButton(
                       child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
@@ -56,7 +85,8 @@ class FundTeoriState extends State<FundTeori> {
               },
             ),
           )
-        ],),
+        ],
+      ),
       body: ZefyrScaffold(
         child: ZefyrEditor(
           padding: EdgeInsets.all(16),
@@ -67,8 +97,8 @@ class FundTeoriState extends State<FundTeori> {
     );
   }
 
-  NotusDocument _loadDocument() {
-    final Delta delta = Delta()..insert('Fundamentação Teorica\n');
+  NotusDocument _loadDocument(BuildContext context) {
+    final Delta delta = Delta()..insert(widget.fundamentacao + "\n");
     return NotusDocument.fromDelta(delta);
   }
 }

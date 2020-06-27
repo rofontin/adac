@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:adac/Banco/BD.dart';
-import 'package:adac/Funcionalidades/MenuArquivo.dart';
+import 'package:adac/NovoArquivo/MenuArquivo.dart';
 import 'package:adac/Modelos/Arquivo.dart';
 import 'package:adac/Modelos/CorpoArquivo.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PrimeiraConfigs extends StatefulWidget {

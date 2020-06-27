@@ -5,36 +5,24 @@ import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
-class Introducao extends StatefulWidget {
+class ConsFinais extends StatefulWidget {
 
   int idArquivo;
-  String introducao;
+  String consFinais;
 
-  Introducao({Key key, this.idArquivo,this.introducao}) : super(key: key,);
+  ConsFinais({Key key, this.idArquivo,this.consFinais}) : super(key: key,);
 
   @override
-  IntroducaoState createState() => IntroducaoState();
+  ConsFinaisState createState() => ConsFinaisState();
 }
 
-class IntroducaoState extends State<Introducao> {
+class ConsFinaisState extends State<ConsFinais> {
 
   ZefyrController _controller;
   FocusNode _focusNode;
   CorpoArquivo _corpoArquivo = CorpoArquivo();
 
   DatabaseHelper db = DatabaseHelper();
-
-  String introducao = "Parágrafo – um texto pode ser formado por diversos parágrafos, "+
-  "apresentado de acordo com o grupo de idéias. O parágrafo é composto de frases, "+
-  "é uma mudança de linha. Frase é expressa sentido. As frases podem ser: interrogativas, "+
-  "afirmativas, negativas, exclamativas e imperativas."+
-  "Fatores na construção do texto – o texto enseja coerência, trabalhar com coesão."+
-  "A coerência é um fator importante para a estruturação do texto, no ponto em que não se "+
-  "podem contradizer as outras partes do texto. Na verdade o texto deve ser coerente em um todo."+
-  "A coesão é uma conexão interna entre as várias partes de um texto. A melhor forma de usar"+
-  "esta ferramenta e dispor de forma correta o uso da gramática."+
-  "Organização dos textos – primeiro buscar uma finalidade, depois decidir sobre uma sequência."+
-  "As sequências dividem-se em: narrativas, descritivas, dissertativas, instrutivas e com diálogos.";
 
   @override
   void initState() {
@@ -49,7 +37,7 @@ class IntroducaoState extends State<Introducao> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Introdução"),
+        title: Text("Considerações Finais"),
         actions: <Widget>[
           Builder(
             builder: (context) => IconButton(
@@ -57,8 +45,22 @@ class IntroducaoState extends State<Introducao> {
               onPressed: () {
                 _corpoArquivo.id = widget.idArquivo;
                 _corpoArquivo.idArquivo = widget.idArquivo;
-                _corpoArquivo.topico1 = introducao;
+                _corpoArquivo.topico5 = _controller.document.toPlainText();
                 db.atualizaCorpoArquivo(_corpoArquivo);
+
+                return Alert(
+                  context: context, 
+                  title: "Salvar Arquivo",
+                  desc: "Arquivo salvo com sucesso!",
+                  buttons: [
+                    DialogButton(
+                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }
+                    )
+                  ]
+                  ).show();
               },
             ),
           ),
@@ -69,9 +71,7 @@ class IntroducaoState extends State<Introducao> {
                 return Alert(
                   context: context, 
                   title: "Ajuda!",
-                  desc: "A introdução é primordial para produzir um conteúdo, pois é essa etapa que "
-                  "vai incentivar a leitura completa do texto. Por isso, é importante que a introdução "
-                  "seja muito bem escrita e atrativa para que o leitor permaneça no conteúdo até o fim.",
+                  desc: "",
                   buttons: [
                     DialogButton(
                       child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
@@ -97,7 +97,7 @@ class IntroducaoState extends State<Introducao> {
   }
 
   NotusDocument _loadDocument(BuildContext context) {
-    final Delta delta = Delta()..insert(widget.introducao+"\n");
+    final Delta delta = Delta()..insert(widget.consFinais + "\n");
     return NotusDocument.fromDelta(delta);
   }
 }
