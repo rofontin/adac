@@ -12,7 +12,8 @@ class _TelaContinuarState extends State<TelaContinuar> {
 
   DatabaseHelper db = DatabaseHelper();
   List<Arquivo> arquivos = List<Arquivo>();
-
+  
+  // inicializa tela com arquivos salvos
   @override
   void initState() {
     super.initState();
@@ -27,7 +28,7 @@ class _TelaContinuarState extends State<TelaContinuar> {
       });
     });
   }
-
+  // disponibiliza as funcoes para os arquivos serem excluidos ou acessados
   @override
   Widget build(BuildContext context) {
     return Scaffold(

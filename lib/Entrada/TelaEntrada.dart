@@ -11,7 +11,7 @@ class _TelaEntradaState extends State<TelaEntrada> {
   void _abrirMenu(){
     Navigator.of(context).pushNamedAndRemoveUntil('/TelaMenu', (Route<dynamic> route) => false);
   }
-
+  // renderiza botão de entrar para abrir menu
   @override
   Widget build(BuildContext context) {
     return Stack(

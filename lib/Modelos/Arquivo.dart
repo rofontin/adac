@@ -1,3 +1,4 @@
+// modelo banco para CRUD do arquivo
 class Arquivo{
   int id;
   String nome;

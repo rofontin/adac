@@ -10,6 +10,7 @@ class TelaMenu extends StatefulWidget {
 
 class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
 
+  //funcoes para os cards do menu
   void _abrirArquivoNovo(id){
     if(id == 1){
       Navigator.push(
@@ -57,6 +58,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
     scrollController = new ScrollController();
   }
 
+  //renderiza todos os cards do menu
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

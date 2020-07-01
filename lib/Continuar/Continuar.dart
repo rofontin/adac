@@ -27,6 +27,7 @@ class _ContinuarArquivoState extends State<ContinuarArquivo> {
   List<CorpoArquivo> corpo = List<CorpoArquivo>();
   DatabaseHelper db = DatabaseHelper();
 
+  //inicializa tela retornando os topicos do arquivo selecionado
   @override
   void initState() {
     super.initState();
@@ -39,7 +40,7 @@ class _ContinuarArquivoState extends State<ContinuarArquivo> {
       });
     });
   }
-
+  // abre topicos do arquivo selecionado da lista
   @override
   Widget build(BuildContext context) {
     return Scaffold(

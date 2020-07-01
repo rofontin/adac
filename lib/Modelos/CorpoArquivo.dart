@@ -1,3 +1,4 @@
+// modelo banco para todos os topicos do arquivo
 class CorpoArquivo{
   int id;
   String titulo;
