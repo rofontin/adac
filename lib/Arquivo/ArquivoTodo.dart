@@ -43,7 +43,9 @@ class ArquivoTodoState extends State<ArquivoTodo> {
   void initState() {
     super.initState();
 
-    final document = _loadDocument(context);
+    String all = widget.titulo ;
+
+    final document = _loadDocument(context,all);
     _controller = ZefyrController(document);
     _focusNode = FocusNode();
   }
@@ -64,16 +66,8 @@ class ArquivoTodoState extends State<ArquivoTodo> {
     );
   }
 
-  NotusDocument _loadDocument(BuildContext context) {
-    final Delta delta = Delta()..insert(
-      widget.titulo + "\n\n" +
-      widget.top1 + "\n\n" +
-      widget.top2 + "\n\n" +
-      widget.top3 + "\n\n" +
-      widget.top4 + "\n\n" +
-      widget.top5 + "\n\n" +
-      widget.top6 + "\n\n" 
-    );
+  NotusDocument _loadDocument(BuildContext context,String all) {
+    final Delta delta = Delta()..insert(all+"\n");
     return NotusDocument.fromDelta(delta);
   }
 }

@@ -13,6 +13,7 @@ class ContinuarArquivo extends StatefulWidget {
 
   int idArquivo;
   String nomeArquivo;
+  String titulo;
 
   ContinuarArquivo({Key key, this.idArquivo,this.nomeArquivo}) : super(key: key,);
 

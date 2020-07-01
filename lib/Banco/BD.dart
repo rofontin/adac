@@ -6,8 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-class DatabaseHelper{
-
+class DatabaseHelper {
   static DatabaseHelper _databaseHelper;
   static Database _database;
 
@@ -29,13 +28,12 @@ class DatabaseHelper{
   String colEstrangeira = 'idArquivo';
 
   DatabaseHelper._createInstance();
-  
+
   /*
    * Cria uma instancia de um banco de dados
    */
-  factory DatabaseHelper(){
-
-    if(_databaseHelper == null){
+  factory DatabaseHelper() {
+    if (_databaseHelper == null) {
       _databaseHelper = DatabaseHelper._createInstance();
     }
 
@@ -45,9 +43,8 @@ class DatabaseHelper{
   /*
    * retorna o banco de dados
    */
-  Future<Database> get database async{
-
-    if(_database == null){
+  Future<Database> get database async {
+    if (_database == null) {
       _database = await initializeDatabase();
     }
 
@@ -57,8 +54,7 @@ class DatabaseHelper{
   /*
    * Inicializa o banco de dados
    */
-  Future<Database> initializeDatabase() async{
-    
+  Future<Database> initializeDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String path = directory.path + 'adacArquivos.db';
 
@@ -70,15 +66,17 @@ class DatabaseHelper{
    * Cria as tabelas do banco de dados
    */
   void _createDb(Database db, int newVersion) async {
-    await db.execute('CREATE TABLE $arquivoTable($colId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, $colNomeArquivo VARCHAR(50))');
-    await db.execute('CREATE TABLE $corpoArquivoTable($colCorpoId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, $colCorpoTitulo VARCHAR(50),$colTopico1 TEXT,'
-    '$colTopico2 TEXT,$colTopico3 TEXT,$colTopico4 TEXT,$colTopico5 TEXT,$colTopico6 TEXT, $colEstrangeira INTEGER, FOREIGN KEY ($colEstrangeira) REFERENCES $arquivoTable($colId))');
+    await db.execute(
+        'CREATE TABLE $arquivoTable($colId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, $colNomeArquivo VARCHAR(50))');
+    await db.execute(
+        'CREATE TABLE $corpoArquivoTable($colCorpoId INTEGER NOT NULL PRIMARY KEY, $colCorpoTitulo VARCHAR(50),$colTopico1 TEXT,'
+        '$colTopico2 TEXT,$colTopico3 TEXT,$colTopico4 TEXT,$colTopico5 TEXT,$colTopico6 TEXT, $colEstrangeira INTEGER, FOREIGN KEY ($colEstrangeira) REFERENCES $arquivoTable($colId))');
   }
 
   /*
-   * Inseri um arquivo
+   * Inseri um arquivo e um corpo arquivo também
    */
-  Future<int>inserirArquivo(Arquivo arquivo,CorpoArquivo corpo) async {
+  Future<int> inserirArquivo(Arquivo arquivo, CorpoArquivo corpo) async {
     Database db = await this.database;
 
     var resultado = await db.insert(arquivoTable, arquivo.toMap());
@@ -90,73 +88,59 @@ class DatabaseHelper{
   }
 
   /*
-   * Inseri o corpo de um arquivo
-   
-  Future<int> inserirCorpo(CorpoArquivo corpoArquivo) async {
-    Database db = await this.database;
-
-    
-
- 
-  }*/
-
-  /*
    * Retorna arquivo pelo nome
    */
   retornaArquivo(String nome) async {
-    
     Database db = await this.database;
 
-    var maps = await db.query(
-      arquivoTable,
-      columns: [colId,colNomeArquivo],
-      where: "$colNomeArquivo = ?",
-      whereArgs: [nome]
-    );
+    var maps = await db.query(arquivoTable,
+        columns: [colId, colNomeArquivo],
+        where: "$colNomeArquivo = ?",
+        whereArgs: [nome]);
 
-    if(maps.length > 0){
+    if (maps.length > 0) {
       return Arquivo.fromMap(maps.first);
-    }else{
+    } else {
       return null;
     }
-
   }
 
   /*
    * Retorna o corpo de um arquivo
    */
-  retornaCorpoArquivo(int idArquivo) async{
-    
+  retornaCorpoArquivo(int idArquivo) async {
     Database db = await this.database;
 
-    var maps = await db.query(
-      corpoArquivoTable,
-      columns: [colCorpoId,colCorpoTitulo,colTopico1,colTopico2,colTopico3,colTopico4,colTopico5,colTopico6,colEstrangeira],
-      where: "$colEstrangeira = ?",
-      whereArgs: [idArquivo]
-    );
+    var maps = await db.query(corpoArquivoTable,
+        columns: [
+          colCorpoId,
+          colCorpoTitulo,
+          colTopico1,
+          colTopico2,
+          colTopico3,
+          colTopico4,
+          colTopico5,
+          colTopico6,
+          colEstrangeira
+        ],
+        where: "$colEstrangeira = ?",
+        whereArgs: [idArquivo]);
 
-    List<CorpoArquivo> lista = maps.isNotEmpty ? maps.map(
-      (c) => CorpoArquivo.fromMap(c)
-    ).toList() : [];
+    List<CorpoArquivo> lista = maps.isNotEmpty
+        ? maps.map((c) => CorpoArquivo.fromMap(c)).toList()
+        : [];
 
     return lista;
-
   }
 
   /*
    * Atualiza um arquivo
    */
   Future<int> atualizaArquivo(Arquivo arquivo) async {
-
     var db = await this.database;
 
-    var resultado = await db.update(
-      arquivoTable,
-      arquivo.toMap(),
-      where: '$colId = ?',
-      whereArgs: [arquivo.id]
-    );
+    var resultado = await db.update(arquivoTable, arquivo.toMap(),
+        where: '$colId = ?', whereArgs: [arquivo.id]);
 
     return resultado;
   }
@@ -165,15 +149,10 @@ class DatabaseHelper{
    * Atualiza o corpo de um arquivo
    */
   Future<int> atualizaCorpoArquivo(CorpoArquivo corpoArquivo) async {
-
     var db = await this.database;
 
-    var resultado = await db.update(
-      corpoArquivoTable,
-      corpoArquivo.toMap(),
-      where: '$colEstrangeira = ?',
-      whereArgs: [corpoArquivo.idArquivo]
-    );
+    var resultado = await db.update(corpoArquivoTable, corpoArquivo.toMap(),
+        where: '$colEstrangeira = ?', whereArgs: [corpoArquivo.idArquivo]);
 
     return resultado;
   }
@@ -182,14 +161,10 @@ class DatabaseHelper{
    * Deleta um arquivo por id
    */
   Future<int> deletarArquivo(int id) async {
-
     var db = await this.database;
 
-    int resultado = await db.delete(
-      arquivoTable,
-      where: '$colId = ?',
-      whereArgs: [id]
-    );
+    int resultado =
+        await db.delete(arquivoTable, where: '$colId = ?', whereArgs: [id]);
 
     return resultado;
   }
@@ -197,15 +172,14 @@ class DatabaseHelper{
   /*
    * Retorna lista de arquivos
    */
-  Future<List<Arquivo>> retornaArquivos() async{
-
+  Future<List<Arquivo>> retornaArquivos() async {
     Database db = await this.database;
 
     var resultado = await db.query(arquivoTable);
 
-    List<Arquivo> lista = resultado.isNotEmpty ? resultado.map(
-      (c) => Arquivo.fromMap(c)
-    ).toList() : [];
+    List<Arquivo> lista = resultado.isNotEmpty
+        ? resultado.map((c) => Arquivo.fromMap(c)).toList()
+        : [];
 
     return lista;
   }
@@ -214,11 +188,8 @@ class DatabaseHelper{
    * Fecha banco de dados
    */
   Future close() async {
-    
     Database db = await this.database;
 
     db.close();
   }
-
 }
-

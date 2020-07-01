@@ -98,7 +98,7 @@ class FundTeoriState extends State<FundTeori> {
   }
 
   NotusDocument _loadDocument(BuildContext context) {
-    final Delta delta = Delta()..insert(widget.fundamentacao + "\n");
+    final Delta delta = Delta()..insert(widget.fundamentacao+"\n");
     return NotusDocument.fromDelta(delta);
   }
 }
