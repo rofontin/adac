@@ -1,33 +1,42 @@
+import 'dart:convert';
+
+import 'package:adac/Banco/BD.dart';
+import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:flutter/material.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
 class Introducao extends StatefulWidget {
+
+  int idArquivo;
+  String introducao;
+
+  Introducao({Key key, this.idArquivo,this.introducao}) : super(key: key,);
+
   @override
   IntroducaoState createState() => IntroducaoState();
 }
 
 class IntroducaoState extends State<Introducao> {
-  /// Allows to control the editor and the document.
-  ZefyrController _controller;
 
-  /// Zefyr editor like any other input field requires a focus node.
+  ZefyrController _controller;
   FocusNode _focusNode;
+  CorpoArquivo _corpoArquivo = CorpoArquivo();
+
+  DatabaseHelper db = DatabaseHelper();
 
   @override
   void initState() {
     super.initState();
-    // Here we must load the document and pass it to Zefyr controller.
-    final document = _loadDocument();
+
+    final document = _loadDocument(context);
     _controller = ZefyrController(document);
     _focusNode = FocusNode();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Note that the editor requires special `ZefyrScaffold` widget to be
-    // one of its parents.
     return Scaffold(
       appBar: AppBar(
         title: Text("Introdução"),
@@ -35,7 +44,26 @@ class IntroducaoState extends State<Introducao> {
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
-              onPressed: () {},
+              onPressed: () {
+                _corpoArquivo.id = widget.idArquivo;
+                _corpoArquivo.idArquivo = widget.idArquivo;
+                _corpoArquivo.topico1 = _controller.document.toPlainText();
+                db.atualizaCorpoArquivo(_corpoArquivo);
+
+                return Alert(
+                  context: context, 
+                  title: "Salvar Arquivo",
+                  desc: "Arquivo salvo com sucesso!",
+                  buttons: [
+                    DialogButton(
+                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }
+                    )
+                  ]
+                  ).show();
+              },
             ),
           ),
           Builder(
@@ -50,7 +78,7 @@ class IntroducaoState extends State<Introducao> {
                   "seja muito bem escrita e atrativa para que o leitor permaneça no conteúdo até o fim.",
                   buttons: [
                     DialogButton(
-                      child: Text("Fechar"), 
+                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
                       onPressed: () {
                         Navigator.pop(context);
                       }
@@ -60,7 +88,8 @@ class IntroducaoState extends State<Introducao> {
               },
             ),
           )
-        ],),
+        ],
+      ),
       body: ZefyrScaffold(
         child: ZefyrEditor(
           padding: EdgeInsets.all(16),
@@ -71,12 +100,8 @@ class IntroducaoState extends State<Introducao> {
     );
   }
 
-  /// Loads the document to be edited in Zefyr.
-  NotusDocument _loadDocument() {
-    // For simplicity we hardcode a simple document with one line of text
-    // saying "Zefyr Quick Start".
-    // (Note that delta must always end with newline.)
-    final Delta delta = Delta()..insert("Introdução\n");
+  NotusDocument _loadDocument(BuildContext context) {
+    final Delta delta = Delta()..insert(widget.introducao+"\n");
     return NotusDocument.fromDelta(delta);
   }
 }

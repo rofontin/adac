@@ -1,6 +1,7 @@
-import 'package:adac/Funcionalidades/MenuArquivo.dart';
+import 'package:adac/Continuar/TelaContinuar.dart';
+import 'package:adac/NovoArquivo/PrimeiraConfigs.dart';
 import 'package:flutter/material.dart';
-import 'package:adac/Funcionalidades/CardModel.dart';
+import 'package:adac/Modelos/CardModel.dart';
 
 class TelaMenu extends StatefulWidget {
   @override
@@ -14,15 +15,30 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
       Navigator.push(
         context, 
         MaterialPageRoute(
-          builder: (context) => MenuArquivo()
+          builder: (context) => PrimeiraConfigs()
         )
       );
     }else if(id == 2){
-
+      Navigator.push(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => TelaContinuar()
+        )
+      );
     }else if(id == 3){
-
+      /*Navigator.push(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => PrimeiraConfigs()
+        )
+      );*/
     }else if(id == 4){
-
+      /*Navigator.push(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => PrimeiraConfigs()
+        )
+      );*/
     }
   }
 
@@ -31,7 +47,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
   ScrollController scrollController;
   var currentColor = Color.fromRGBO(231, 129, 109, 1.0);
 
-  var cardsList = [CardItemModel("Novo Texto", Icons.add_circle,1),CardItemModel("Selecionar Arquivo", Icons.cloud_upload,2),CardItemModel("Continuar", Icons.edit,3),CardItemModel("Configurações", Icons.settings,4)];
+  var cardsList = [CardItemModel("Novo Texto", Icons.note_add,1),CardItemModel("Continuar", Icons.edit,2),CardItemModel("Selecionar Arquivo", Icons.cloud_upload,3),CardItemModel("Configurações", Icons.settings,4)];
 
   AnimationController animationController;
 
@@ -49,23 +65,30 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
         backgroundColor: Color.fromRGBO(18, 32, 45, 1),
         title: new Text("ADAC", style: TextStyle(fontSize: 25.0),),
         actions: <Widget>[
-          Builder(
-            builder: (context) => IconButton(
-              icon: Icon(Icons.person_pin, size: 35),
-              onPressed: () {},
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: Builder(
+              builder: (context) => IconButton(
+                icon: Icon(Icons.person_pin, size: 35),
+                onPressed: () {},
+              ),
             ),
-          ),
+          )
         ]
       ),
       body: new Stack(
+        fit: StackFit.expand,
         children:<Widget>[
         Container(
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/telamenu.png"),
-                  fit: BoxFit.cover)),
+            image: DecorationImage(
+              image: AssetImage("images/telamenu.png"),
+              fit: BoxFit.cover
+            )
+          ),
         ),
-        Column(
+        SingleChildScrollView(
+          child: Column(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -82,7 +105,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
                           _abrirArquivoNovo(cardsList[position].id);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(top:250.0,left: 10,right: 15),
+                          padding: const EdgeInsets.only(top:280.0,left: 10,right: 15),
                           child: Card(
                             color: Color.fromRGBO(255, 255, 255, 0.5),
                             child: Container(
@@ -99,12 +122,13 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 30,bottom:10),
+                                    padding: const EdgeInsets.only(top: 10),
                                     child: Column(
                                       children: <Widget>[
                                         Padding(
                                           padding: const EdgeInsets.all(30),
-                                          child: Text("${cardsList[position].cardTitle}",textAlign: TextAlign.center ,style: TextStyle(fontSize: 30.0,color: Colors.white),),
+                                          child: Text("${cardsList[position].cardTitle}",
+                                          textAlign: TextAlign.center ,style: TextStyle(fontSize: 30.0,color: Colors.white),),
                                         ),
                                       ],
                                     ),
@@ -142,6 +166,7 @@ class _TelaMenuState extends State<TelaMenu> with TickerProviderStateMixin{
               ],
             )
           ],
+        ),
         ),
         ]
       ),
