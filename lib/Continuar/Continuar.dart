@@ -1,17 +1,19 @@
+import 'package:adac/Arquivo/ArquivoTodo.dart';
 import 'package:adac/Banco/BD.dart';
 import 'package:adac/Modelos/CorpoArquivo.dart';
-import 'package:adac/NovoArquivo/ApresResultados.dart';
-import 'package:adac/NovoArquivo/ConsiderFinais.dart';
-import 'package:adac/NovoArquivo/FundamTeorica.dart';
-import 'package:adac/NovoArquivo/Metodologia.dart';
-import 'package:adac/NovoArquivo/RefBibliograficas.dart';
+import 'package:adac/Arquivo/ApresResultados.dart';
+import 'package:adac/Arquivo/ConsiderFinais.dart';
+import 'package:adac/Arquivo/FundamTeorica.dart';
+import 'package:adac/Arquivo/Metodologia.dart';
+import 'package:adac/Arquivo/RefBibliograficas.dart';
 import 'package:flutter/material.dart';
-import 'package:adac/NovoArquivo/Introducao.dart';
+import 'package:adac/Arquivo/Introducao.dart';
 
 class ContinuarArquivo extends StatefulWidget {
 
   int idArquivo;
   String nomeArquivo;
+  String titulo;
 
   ContinuarArquivo({Key key, this.idArquivo,this.nomeArquivo}) : super(key: key,);
 
@@ -75,7 +77,21 @@ class _ContinuarArquivoState extends State<ContinuarArquivo> {
                         child: InkWell(
                             splashColor: Colors.white.withAlpha(100),
                             onTap: () {
-                              
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) => ArquivoTodo(
+                                    idArquivo: corpo[0].idArquivo,
+                                    titulo: corpo[0].titulo,
+                                    top1: corpo[0].topico1,
+                                    top2: corpo[0].topico2,
+                                    top3: corpo[0].topico3,
+                                    top4: corpo[0].topico4,
+                                    top5: corpo[0].topico5,
+                                    top6: corpo[0].topico6,
+                                  )
+                                )
+                              );
                             },
                             child: Center(
                               child: Column(
@@ -147,7 +163,7 @@ class _ContinuarArquivoState extends State<ContinuarArquivo> {
                               Navigator.push(
                                 context, 
                                 MaterialPageRoute(
-                                  builder: (context) => FundTeori()
+                                  builder: (context) => FundTeori(idArquivo: corpo[0].idArquivo,fundamentacao: corpo[0].topico2,)
                                 )
                               );
                             },
@@ -182,7 +198,7 @@ class _ContinuarArquivoState extends State<ContinuarArquivo> {
                               Navigator.push(
                                 context, 
                                 MaterialPageRoute(
-                                  builder: (context) => Metodolog()
+                                  builder: (context) => Metodolog(idArquivo: corpo[0].idArquivo,metodologia: corpo[0].topico3,)
                                 )
                               );
                             },
@@ -217,7 +233,7 @@ class _ContinuarArquivoState extends State<ContinuarArquivo> {
                               Navigator.push(
                                 context, 
                                 MaterialPageRoute(
-                                  builder: (context) => Resultados()
+                                  builder: (context) => Resultados(idArquivo: corpo[0].idArquivo,resultados: corpo[0].topico4,)
                                 )
                               );
                             },
@@ -253,7 +269,7 @@ class _ContinuarArquivoState extends State<ContinuarArquivo> {
                               Navigator.push(
                                 context, 
                                 MaterialPageRoute(
-                                  builder: (context) => ConsFinais()
+                                  builder: (context) => ConsFinais(idArquivo: corpo[0].idArquivo,consFinais: corpo[0].topico5,)
                                 )
                               );
                             },
@@ -288,7 +304,7 @@ class _ContinuarArquivoState extends State<ContinuarArquivo> {
                               Navigator.push(
                                 context, 
                                 MaterialPageRoute(
-                                  builder: (context) => RefBiblio()
+                                  builder: (context) => RefBiblio(idArquivo: corpo[0].idArquivo,refBiblio: corpo[0].topico6,)
                                 )
                               );
                             },

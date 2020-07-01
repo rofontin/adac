@@ -1,7 +1,7 @@
-import 'package:adac/Entrada/TelaContinuar.dart';
+import 'package:adac/Continuar/TelaContinuar.dart';
 import 'package:adac/NovoArquivo/PrimeiraConfigs.dart';
 import 'package:flutter/material.dart';
-import 'package:adac/Funcionalidades/CardModel.dart';
+import 'package:adac/Modelos/CardModel.dart';
 
 class TelaMenu extends StatefulWidget {
   @override

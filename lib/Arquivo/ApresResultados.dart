@@ -1,9 +1,17 @@
+import 'package:adac/Banco/BD.dart';
+import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:flutter/material.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
 class Resultados extends StatefulWidget {
+
+  int idArquivo;
+  String resultados;
+
+  Resultados({Key key, this.idArquivo,this.resultados}) : super(key: key,);
+
   @override
   ResultadosState createState() => ResultadosState();
 }
@@ -12,12 +20,15 @@ class ResultadosState extends State<Resultados> {
 
   ZefyrController _controller;
   FocusNode _focusNode;
+  CorpoArquivo _corpoArquivo = CorpoArquivo();
+
+  DatabaseHelper db = DatabaseHelper();
 
   @override
   void initState() {
     super.initState();
-    
-    final document = _loadDocument();
+
+    final document = _loadDocument(context);
     _controller = ZefyrController(document);
     _focusNode = FocusNode();
   }
@@ -26,12 +37,31 @@ class ResultadosState extends State<Resultados> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Apresentação dos resultados"),
+        title: Text("Apresentação dos Resultados"),
         actions: <Widget>[
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
-              onPressed: () {},
+              onPressed: () {
+                _corpoArquivo.id = widget.idArquivo;
+                _corpoArquivo.idArquivo = widget.idArquivo;
+                _corpoArquivo.topico4 = _controller.document.toPlainText();
+                db.atualizaCorpoArquivo(_corpoArquivo);
+
+                return Alert(
+                  context: context, 
+                  title: "Salvar Arquivo",
+                  desc: "Arquivo salvo com sucesso!",
+                  buttons: [
+                    DialogButton(
+                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }
+                    )
+                  ]
+                  ).show();
+              },
             ),
           ),
           Builder(
@@ -41,9 +71,7 @@ class ResultadosState extends State<Resultados> {
                 return Alert(
                   context: context, 
                   title: "Ajuda!",
-                  desc: "A introdução é primordial para produzir um conteúdo, pois é essa etapa que "
-                  "vai incentivar a leitura completa do texto. Por isso, é importante que a introdução "
-                  "seja muito bem escrita e atrativa para que o leitor permaneça no conteúdo até o fim.",
+                  desc:  "",
                   buttons: [
                     DialogButton(
                       child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
@@ -56,7 +84,8 @@ class ResultadosState extends State<Resultados> {
               },
             ),
           )
-        ],),
+        ],
+      ),
       body: ZefyrScaffold(
         child: ZefyrEditor(
           padding: EdgeInsets.all(16),
@@ -67,8 +96,8 @@ class ResultadosState extends State<Resultados> {
     );
   }
 
-  NotusDocument _loadDocument() {
-    final Delta delta = Delta()..insert('Apresentação dos resultados\n');
+  NotusDocument _loadDocument(BuildContext context) {
+    final Delta delta = Delta()..insert(widget.resultados+"\n");
     return NotusDocument.fromDelta(delta);
   }
 }

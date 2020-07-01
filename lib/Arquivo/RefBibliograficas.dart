@@ -1,9 +1,17 @@
+import 'package:adac/Banco/BD.dart';
+import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:flutter/material.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
 class RefBiblio extends StatefulWidget {
+
+  int idArquivo;
+  String refBiblio;
+
+  RefBiblio({Key key, this.idArquivo,this.refBiblio}) : super(key: key,);
+
   @override
   RefBiblioState createState() => RefBiblioState();
 }
@@ -12,12 +20,15 @@ class RefBiblioState extends State<RefBiblio> {
 
   ZefyrController _controller;
   FocusNode _focusNode;
+  CorpoArquivo _corpoArquivo = CorpoArquivo();
+
+  DatabaseHelper db = DatabaseHelper();
 
   @override
   void initState() {
     super.initState();
-    
-    final document = _loadDocument();
+
+    final document = _loadDocument(context);
     _controller = ZefyrController(document);
     _focusNode = FocusNode();
   }
@@ -31,7 +42,26 @@ class RefBiblioState extends State<RefBiblio> {
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
-              onPressed: () {},
+              onPressed: () {
+                _corpoArquivo.id = widget.idArquivo;
+                _corpoArquivo.idArquivo = widget.idArquivo;
+                _corpoArquivo.topico6 = _controller.document.toPlainText();
+                db.atualizaCorpoArquivo(_corpoArquivo);
+
+                return Alert(
+                  context: context, 
+                  title: "Salvar Arquivo",
+                  desc: "Arquivo salvo com sucesso!",
+                  buttons: [
+                    DialogButton(
+                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }
+                    )
+                  ]
+                  ).show();
+              },
             ),
           ),
           Builder(
@@ -41,9 +71,7 @@ class RefBiblioState extends State<RefBiblio> {
                 return Alert(
                   context: context, 
                   title: "Ajuda!",
-                  desc: "A introdução é primordial para produzir um conteúdo, pois é essa etapa que "
-                  "vai incentivar a leitura completa do texto. Por isso, é importante que a introdução "
-                  "seja muito bem escrita e atrativa para que o leitor permaneça no conteúdo até o fim.",
+                  desc: "",
                   buttons: [
                     DialogButton(
                       child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
@@ -56,7 +84,8 @@ class RefBiblioState extends State<RefBiblio> {
               },
             ),
           )
-        ],),
+        ],
+      ),
       body: ZefyrScaffold(
         child: ZefyrEditor(
           padding: EdgeInsets.all(16),
@@ -67,8 +96,8 @@ class RefBiblioState extends State<RefBiblio> {
     );
   }
 
-  NotusDocument _loadDocument() {
-    final Delta delta = Delta()..insert('Referencias Bibliograficas\n');
+  NotusDocument _loadDocument(BuildContext context) {
+    final Delta delta = Delta()..insert(widget.refBiblio + "\n");
     return NotusDocument.fromDelta(delta);
   }
 }
