@@ -6,24 +6,32 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
 class Resultados extends StatefulWidget {
-
+  /*
+  * Recebe os dados passados da tela anterior
+  */
   int idArquivo;
   String resultados;
 
-  Resultados({Key key, this.idArquivo,this.resultados}) : super(key: key,);
+  Resultados({Key key, this.idArquivo, this.resultados})
+      : super(
+          key: key,
+        );
 
   @override
   ResultadosState createState() => ResultadosState();
 }
 
 class ResultadosState extends State<Resultados> {
-
   ZefyrController _controller;
   FocusNode _focusNode;
   CorpoArquivo _corpoArquivo = CorpoArquivo();
 
   DatabaseHelper db = DatabaseHelper();
 
+  /*
+  * Inicializa os parametros antes de carregar a tela, chamando
+  * o metodo para carregar o documento
+  */
   @override
   void initState() {
     super.initState();
@@ -39,6 +47,9 @@ class ResultadosState extends State<Resultados> {
       appBar: AppBar(
         title: Text("Apresentação dos Resultados"),
         actions: <Widget>[
+          /*
+          * Botão para salvar o documento
+          */
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
@@ -49,38 +60,43 @@ class ResultadosState extends State<Resultados> {
                 db.atualizaCorpoArquivo(_corpoArquivo);
 
                 return Alert(
-                  context: context, 
-                  title: "Salvar Arquivo",
-                  desc: "Arquivo salvo com sucesso!",
-                  buttons: [
-                    DialogButton(
-                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
-                      onPressed: () {
-                        Navigator.pop(context);
-                      }
-                    )
-                  ]
-                  ).show();
+                    context: context,
+                    title: "Salvar Arquivo",
+                    desc: "Arquivo salvo com sucesso!",
+                    buttons: [
+                      DialogButton(
+                          child: Text(
+                            "Fechar",
+                            style: TextStyle(color: Colors.white, fontSize: 25),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          })
+                    ]).show();
               },
             ),
           ),
+          /*
+          * Botão de ajuda sobre o assunto do topico
+          */
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.help),
               onPressed: () {
                 return Alert(
-                  context: context, 
-                  title: "Ajuda!",
-                  desc:  "",
-                  buttons: [
-                    DialogButton(
-                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
-                      onPressed: () {
-                        Navigator.pop(context);
-                      }
-                    )
-                  ]
-                  ).show();
+                    context: context,
+                    title: "Ajuda!",
+                    desc: "",
+                    buttons: [
+                      DialogButton(
+                          child: Text(
+                            "Fechar",
+                            style: TextStyle(color: Colors.white, fontSize: 25),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          })
+                    ]).show();
               },
             ),
           )
@@ -96,8 +112,11 @@ class ResultadosState extends State<Resultados> {
     );
   }
 
+  /*
+  * Carrega o documento com o topico passado pelo metodo
+  */
   NotusDocument _loadDocument(BuildContext context) {
-    final Delta delta = Delta()..insert(widget.resultados+"\n");
+    final Delta delta = Delta()..insert(widget.resultados + "\n");
     return NotusDocument.fromDelta(delta);
   }
 }

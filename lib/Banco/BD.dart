@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:adac/Modelos/Arquivo.dart';
 import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:path_provider/path_provider.dart';
