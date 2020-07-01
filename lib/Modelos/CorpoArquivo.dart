@@ -1,15 +1,15 @@
 class CorpoArquivo{
   int id;
   String titulo;
-  String topico1;
-  String topico2;
-  String topico3;
-  String topico4;
-  String topico5;
-  String topico6;
+  String topico1 = "Introdução";
+  String topico2 = "Fundamentação Teorica";
+  String topico3 = "Metodologia";
+  String topico4 = "Apresentação dos Resultados";
+  String topico5 = "Considerações Finais";
+  String topico6 = "Referências Bibliográficas"; 
   int idArquivo;
 
-  CorpoArquivo(this.idArquivo);
+  CorpoArquivo();
 
   Map<String,dynamic> toMap(){
 

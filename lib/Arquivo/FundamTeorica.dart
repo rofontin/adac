@@ -5,34 +5,30 @@ import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
-class Introducao extends StatefulWidget {
+class FundTeori extends StatefulWidget {
 
-  final int idArquivo;
+  int idArquivo;
+  String fundamentacao;
 
-  Introducao({Key key, this.idArquivo}) : super(key: key,);
+  FundTeori({Key key, this.idArquivo,this.fundamentacao}) : super(key: key,);
 
   @override
-  IntroducaoState createState() => IntroducaoState();
+  FundTeoriState createState() => FundTeoriState();
 }
 
-class IntroducaoState extends State<Introducao> {
-
-  CorpoArquivo _corpoArquivo;
+class FundTeoriState extends State<FundTeori> {
 
   ZefyrController _controller;
   FocusNode _focusNode;
+  CorpoArquivo _corpoArquivo = CorpoArquivo();
+
   DatabaseHelper db = DatabaseHelper();
-  List<CorpoArquivo> topicos = List<CorpoArquivo>();
 
   @override
   void initState() {
     super.initState();
-    
-    _corpoArquivo = CorpoArquivo(widget.idArquivo);
-    _corpoArquivo.topico1 = 'Introdução teste 1';
-    List<CorpoArquivo> topicos;
 
-    final document = _loadDocument(topicos);
+    final document = _loadDocument(context);
     _controller = ZefyrController(document);
     _focusNode = FocusNode();
   }
@@ -41,14 +37,30 @@ class IntroducaoState extends State<Introducao> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Introdução"),
+        title: Text("Fundamentação Teorica"),
         actions: <Widget>[
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
               onPressed: () {
-                print(_corpoArquivo.idArquivo);
-                _inseriIntroducao(_corpoArquivo);
+                _corpoArquivo.id = widget.idArquivo;
+                _corpoArquivo.idArquivo = widget.idArquivo;
+                _corpoArquivo.topico2 = _controller.document.toPlainText();
+                db.atualizaCorpoArquivo(_corpoArquivo);
+
+                return Alert(
+                  context: context, 
+                  title: "Salvar Arquivo",
+                  desc: "Arquivo salvo com sucesso!",
+                  buttons: [
+                    DialogButton(
+                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }
+                    )
+                  ]
+                  ).show();
               },
             ),
           ),
@@ -59,9 +71,8 @@ class IntroducaoState extends State<Introducao> {
                 return Alert(
                   context: context, 
                   title: "Ajuda!",
-                  desc: "A introdução é primordial para produzir um conteúdo, pois é essa etapa que "
-                  "vai incentivar a leitura completa do texto. Por isso, é importante que a introdução "
-                  "seja muito bem escrita e atrativa para que o leitor permaneça no conteúdo até o fim.",
+                  desc: "A fundamentação teórica consiste em embasar por meio das ideias " +
+                  "de outros autores aspectos teóricos de sua pesquisa.",
                   buttons: [
                     DialogButton(
                       child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
@@ -86,12 +97,8 @@ class IntroducaoState extends State<Introducao> {
     );
   }
 
-  NotusDocument _loadDocument(List<CorpoArquivo> topicos) {
-    final Delta delta = Delta()..insert(topicos[4].topico1);
+  NotusDocument _loadDocument(BuildContext context) {
+    final Delta delta = Delta()..insert(widget.fundamentacao+"\n");
     return NotusDocument.fromDelta(delta);
-  }
-
-  void _inseriIntroducao(CorpoArquivo corpoArquivo) async{
-      await db.inserirCorpo(corpoArquivo);
   }
 }

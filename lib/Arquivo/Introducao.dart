@@ -1,23 +1,36 @@
+import 'dart:convert';
+
+import 'package:adac/Banco/BD.dart';
+import 'package:adac/Modelos/CorpoArquivo.dart';
 import 'package:flutter/material.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
-class ConsFinais extends StatefulWidget {
+class Introducao extends StatefulWidget {
+
+  int idArquivo;
+  String introducao;
+
+  Introducao({Key key, this.idArquivo,this.introducao}) : super(key: key,);
+
   @override
-  ConsFinaisState createState() => ConsFinaisState();
+  IntroducaoState createState() => IntroducaoState();
 }
 
-class ConsFinaisState extends State<ConsFinais> {
+class IntroducaoState extends State<Introducao> {
 
   ZefyrController _controller;
   FocusNode _focusNode;
+  CorpoArquivo _corpoArquivo = CorpoArquivo();
+
+  DatabaseHelper db = DatabaseHelper();
 
   @override
   void initState() {
     super.initState();
-    
-    final document = _loadDocument();
+
+    final document = _loadDocument(context);
     _controller = ZefyrController(document);
     _focusNode = FocusNode();
   }
@@ -26,12 +39,31 @@ class ConsFinaisState extends State<ConsFinais> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Considerações Finais"),
+        title: Text("Introdução"),
         actions: <Widget>[
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
-              onPressed: () {},
+              onPressed: () {
+                _corpoArquivo.id = widget.idArquivo;
+                _corpoArquivo.idArquivo = widget.idArquivo;
+                _corpoArquivo.topico1 = _controller.document.toPlainText();
+                db.atualizaCorpoArquivo(_corpoArquivo);
+
+                return Alert(
+                  context: context, 
+                  title: "Salvar Arquivo",
+                  desc: "Arquivo salvo com sucesso!",
+                  buttons: [
+                    DialogButton(
+                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }
+                    )
+                  ]
+                  ).show();
+              },
             ),
           ),
           Builder(
@@ -56,7 +88,8 @@ class ConsFinaisState extends State<ConsFinais> {
               },
             ),
           )
-        ],),
+        ],
+      ),
       body: ZefyrScaffold(
         child: ZefyrEditor(
           padding: EdgeInsets.all(16),
@@ -67,8 +100,8 @@ class ConsFinaisState extends State<ConsFinais> {
     );
   }
 
-  NotusDocument _loadDocument() {
-    final Delta delta = Delta()..insert('Considerações Finais\n');
+  NotusDocument _loadDocument(BuildContext context) {
+    final Delta delta = Delta()..insert(widget.introducao+"\n");
     return NotusDocument.fromDelta(delta);
   }
 }
