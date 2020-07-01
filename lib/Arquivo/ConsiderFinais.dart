@@ -6,24 +6,32 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zefyr/zefyr.dart';
 
 class ConsFinais extends StatefulWidget {
-
+  /*
+  * Recebe os dados passados da tela anterior
+  */
   int idArquivo;
   String consFinais;
 
-  ConsFinais({Key key, this.idArquivo,this.consFinais}) : super(key: key,);
+  ConsFinais({Key key, this.idArquivo, this.consFinais})
+      : super(
+          key: key,
+        );
 
   @override
   ConsFinaisState createState() => ConsFinaisState();
 }
 
 class ConsFinaisState extends State<ConsFinais> {
-
   ZefyrController _controller;
   FocusNode _focusNode;
   CorpoArquivo _corpoArquivo = CorpoArquivo();
 
   DatabaseHelper db = DatabaseHelper();
 
+  /*
+  * Inicializa os parametros antes de carregar a tela, chamando
+  * o metodo para carregar o documento
+  */
   @override
   void initState() {
     super.initState();
@@ -39,6 +47,9 @@ class ConsFinaisState extends State<ConsFinais> {
       appBar: AppBar(
         title: Text("Considerações Finais"),
         actions: <Widget>[
+          /*
+          * Botão para salvar o documento
+          */
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.save),
@@ -49,38 +60,43 @@ class ConsFinaisState extends State<ConsFinais> {
                 db.atualizaCorpoArquivo(_corpoArquivo);
 
                 return Alert(
-                  context: context, 
-                  title: "Salvar Arquivo",
-                  desc: "Arquivo salvo com sucesso!",
-                  buttons: [
-                    DialogButton(
-                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
-                      onPressed: () {
-                        Navigator.pop(context);
-                      }
-                    )
-                  ]
-                  ).show();
+                    context: context,
+                    title: "Salvar Arquivo",
+                    desc: "Arquivo salvo com sucesso!",
+                    buttons: [
+                      DialogButton(
+                          child: Text(
+                            "Fechar",
+                            style: TextStyle(color: Colors.white, fontSize: 25),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          })
+                    ]).show();
               },
             ),
           ),
+          /*
+          * Botão de ajuda sobre o assunto do topico
+          */
           Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.help),
               onPressed: () {
                 return Alert(
-                  context: context, 
-                  title: "Ajuda!",
-                  desc: "",
-                  buttons: [
-                    DialogButton(
-                      child: Text("Fechar",style: TextStyle(color: Colors.white,fontSize: 25),), 
-                      onPressed: () {
-                        Navigator.pop(context);
-                      }
-                    )
-                  ]
-                  ).show();
+                    context: context,
+                    title: "Ajuda!",
+                    desc: "",
+                    buttons: [
+                      DialogButton(
+                          child: Text(
+                            "Fechar",
+                            style: TextStyle(color: Colors.white, fontSize: 25),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          })
+                    ]).show();
               },
             ),
           )
@@ -96,6 +112,9 @@ class ConsFinaisState extends State<ConsFinais> {
     );
   }
 
+  /*
+  * Carrega o documento com o topico passado pelo metodo
+  */
   NotusDocument _loadDocument(BuildContext context) {
     final Delta delta = Delta()..insert(widget.consFinais + "\n");
     return NotusDocument.fromDelta(delta);
